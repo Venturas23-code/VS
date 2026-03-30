@@ -23,5 +23,11 @@
         "CNL": true,
         "logo": "https://pomfy.online/pomfylogofullcolor.png",
         "comando": "pomfy"
+    },
+    {
+        "nome": "Stream Verde",
+        "CNL": true,
+        "logo": "https://streamverde.net/wp-content/uploads/2023/02/streamverde.png",
+        "comando": "streamverde"
     }
 ]

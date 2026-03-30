@@ -55,6 +55,8 @@ export default function Modal_Server(movies) {
                     const url = card.getAttribute('data-url');
                     open(url, '_blank');
                     setProvedor('reidoscanais');
+                } else if (provedor === 'streamverde') {
+                    console.log(card.getAttribute('data-url'));
                 } else if (provedor === 'pomfy') {
                     const id = card.getAttribute('data-url');
                     fetch(`http://localhost:3000/api/video/pomfy/${encodeURIComponent(id)}`)
