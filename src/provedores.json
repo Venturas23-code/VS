@@ -15,7 +15,8 @@
         "nome": "Rei dos Canais",
         "CNL": false,
         "logo": "https://reidoscanais.ooo/icon.png",
-        "comando": "reidoscanais"
+        "comando": "reidoscanais",
+        "warning": "Audio pode deteriorar aleatoriamente, reinicie o player ou troque de provedor."
     },
     {
         "nome": "Pomfy",

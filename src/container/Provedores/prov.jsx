@@ -93,7 +93,10 @@ export default function Prov({clickProv}) {
                             event.currentTarget.src = '';
                         }}
                     />
-                    <h2>{provedor.CNL === false ? provedor.nome : null}</h2>
+                    <div className='prov_text'>
+                        <h2>{provedor.CNL === false ? provedor.nome : null}</h2>
+                        <p>{provedor.warning}</p>
+                    </div>
                 </div>
                 <div className='back_prov'></div>
             </div>
