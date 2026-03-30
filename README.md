@@ -1,19 +1,19 @@
 # VS - Scraper de filmes, series e canais 🎬
 
-Aplicativo desktop com Electron + React para pesquisar e abrir conteudos de multiplos provedores em uma interface unica.
+Aplicativo desktop com Electron + React para pesquisar e abrir conteúdos de múltiplos provedores em uma interface única.
 
 O projeto combina:
 
 - Frontend em React (renderer)
-- Backend local em Express para agregacao e proxy de dados
-- Scrapers e integracoes por provedor
+- Backend local em Express para agregação e proxy de dados
+- Scrapers e integrações por provedor
 
 ## Funcionalidades ✨
 
-- 📚 Listagem de catalogo por provedor
-- 🔎 Busca por titulo/provedor
+- 📚 Listagem de catálogo por provedor
+- 🔎 Busca por título/provedor
 - 🪟 Abertura de player em nova janela/aba
-- ⌨️ Navegacao por teclado nos cards
+- ⌨️ Navegação por teclado nos cards
 - 🖼️ Proxy de imagens para reduzir bloqueios de hotlink e 403
 - 🧩 Suporte atual a:
 	- Pobreflix
@@ -37,7 +37,7 @@ O projeto combina:
 .
 |- src/
 |  |- container/            # componentes React
-|  |- server/               # clientes/scrapers por provedor
+|  |- server/               # clientes e scrapers por provedor
 |  |- server.js             # API local (Express)
 |  |- renderer.jsx          # entrada do frontend
 |  |- main.js               # processo principal Electron
@@ -45,12 +45,12 @@ O projeto combina:
 |- package.json
 ```
 
-## Pre-requisitos 📋
+## Pré-requisitos 📋
 
 - Node.js 18+
 - npm
 
-## Instalacao 🚀
+## Instalação 🚀
 
 ```bash
 npm install
@@ -63,15 +63,15 @@ Este projeto usa dois processos:
 1. API local (backend)
 2. Aplicativo Electron (frontend desktop)
 
-Inicie em dois terminais separados na raiz do projeto:
+Inicie qualquer um que você preferir.
 
-Terminal 1 (API local):
+Terminal 1 (API local, só o backend sem a interface do Electron):
 
 ```bash
 node src/server.js
 ```
 
-Terminal 2 (Electron):
+Terminal 2 (Electron, inicia ambos, interface e backend):
 
 ```bash
 npm start
@@ -83,13 +83,13 @@ Depois disso, o app abre em janela desktop e consome a API local em http://local
 
 1. Selecione um provedor.
 2. Navegue pelos cards da listagem.
-3. Use a busca para filtrar por titulo.
-4. Clique no card para abrir opcoes de reproducao.
-5. Escolha o servidor/opcão para abrir o conteudo em nova janela/aba.
+3. Use a busca para filtrar por título.
+4. Clique no card para abrir opções de reprodução.
+5. Escolha o servidor/opção para abrir o conteúdo em nova janela/aba.
 
 ### Atalhos de teclado (listagem) ⌨️
 
-- Setas direcionais: mover selecao entre cards
+- Setas direcionais: mover seleção entre cards
 - Enter ou Espaco: abrir item selecionado
 
 ## Endpoints principais da API local 🌐
@@ -101,14 +101,14 @@ Depois disso, o app abre em janela desktop e consome a API local em http://local
 - `GET /api/eps/:provider/:episodeUrl`
 - `GET /api/image?url=...`
 
-## Build e distribuicao 📦
+## Build e distribuição 📦
 
 ```bash
 npm run package
 npm run make
 ```
 
-## Possiveis problemas 🧯
+## Possíveis problemas 🧯
 
 - Porta 3000 ocupada: altere a porta em `src/server.js`.
 - Erros de scraping: os provedores podem mudar HTML/rotas sem aviso.
