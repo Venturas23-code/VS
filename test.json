@@ -1,0 +1,405 @@
+{
+    "filmesResults": {
+        "page": 1,
+        "results": [
+            {
+                "adult": false,
+                "backdrop_path": "/1x9e0qWonw634NhIsRdvnneeqvN.jpg",
+                "genre_ids": [
+                    10749,
+                    18
+                ],
+                "id": 1523145,
+                "original_language": "ru",
+                "original_title": "Твоё сердце будет разбито",
+                "overview": "Polina, uma estudante do ensino médio, é salva do bullying em sua nova escola e faz um acordo com o principal valentão, Bars: ele deve fingir ser seu namorado e protegê-la, e ela deve fazer tudo o que ele mandar. Durante esse jogo, o casal desenvolve sentimentos verdadeiros, mas sua família e colegas de classe têm motivos para separá-los.",
+                "popularity": 1340.8675,
+                "poster_path": "/hXNn25hE2SH2kHMPVOLjqDISSxf.jpg",
+                "release_date": "2026-03-26",
+                "title": "Um Amor de Mentiras",
+                "video": false,
+                "vote_average": 6.7,
+                "vote_count": 19
+            },
+            {
+                "adult": false,
+                "backdrop_path": "/u8DU5fkLoM5tTRukzPC31oGPxaQ.jpg",
+                "genre_ids": [
+                    878,
+                    12,
+                    14
+                ],
+                "id": 83533,
+                "original_language": "en",
+                "original_title": "Avatar: Fire and Ash",
+                "overview": "Após a devastadora guerra contra a RDA e a perda de seu filho mais velho, Jake Sully e Neytiri enfrentam uma nova ameaça em Pandora: o Povo das Cinzas, uma tribo Na'vi violenta e sedenta por poder, liderada pela implacável Varang. A família de Jake deve lutar por sua sobrevivência e pelo futuro de Pandora em um conflito que os leva aos seus limites emocionais e físicos.",
+                "popularity": 397.7548,
+                "poster_path": "/9k2zKeUfcKkAz1dGt5MP6dZMm4G.jpg",
+                "release_date": "2025-12-17",
+                "title": "Avatar: Fogo e Cinzas",
+                "video": false,
+                "vote_average": 7.3,
+                "vote_count": 1965
+            },
+            {
+                "adult": false,
+                "backdrop_path": "/uNToXatdunyvWXyXMrTI1nLvh6r.jpg",
+                "genre_ids": [
+                    35,
+                    878,
+                    80
+                ],
+                "id": 1115544,
+                "original_language": "en",
+                "original_title": "Mike & Nick & Nick & Alice",
+                "overview": "Uma comédia de ação hilária e estilizada, para maiores de 18 anos, sobre dois gângsteres e a mulher que eles amam, tentando sobreviver à noite mais perigosa de suas vidas. Como se isso não bastasse, tem um ingrediente inusitado na mistura: uma máquina do tempo.",
+                "popularity": 382.9232,
+                "poster_path": "/7F0jc75HrSkLVcvOXR2FXAIwuEv.jpg",
+                "release_date": "2026-03-14",
+                "title": "Mike & Nick & Nick & Alice",
+                "video": false,
+                "vote_average": 6.582,
+                "vote_count": 73
+            },
+            {
+                "adult": false,
+                "backdrop_path": "/6GuqUJ33BnWDAoVPZP55gDr5G55.jpg",
+                "genre_ids": [
+                    28,
+                    53
+                ],
+                "id": 1084187,
+                "original_language": "en",
+                "original_title": "Pretty Lethal",
+                "overview": "Um thriller repleto de ação no qual cinco bailarinas, perdidas em uma floresta remota a caminho de uma competição de dança, encontram abrigo em uma pousada sinistra à beira da estrada, administrada por Devora Kasimer, e precisam usar seu treinamento de elite como arma para sobreviver.",
+                "popularity": 343.0447,
+                "poster_path": "/6vbABd8OYF2bbZyYOift0BxhQnv.jpg",
+                "release_date": "2026-03-13",
+                "title": "Lindas e Letais",
+                "video": false,
+                "vote_average": 6.798,
+                "vote_count": 126
+            },
+            {
+                "adult": false,
+                "backdrop_path": "/nHxWyy18SvAZ8jJeemtS8k1UNjM.jpg",
+                "genre_ids": [
+                    28,
+                    80,
+                    53
+                ],
+                "id": 1290821,
+                "original_language": "en",
+                "original_title": "Shelter",
+                "overview": "Um ex-assassino de aluguel, agora um homem recluso numa ilha costeira remota, salva uma garota de uma tempestade terrível, colocando os dois na mira do perigo. Forçado a sair da aposentadoria e do isolamento, o homem é obrigado a enfrentar seu passado perigoso para proteger a menina enquanto tenta sobreviver uma jornada tensa repleta de perigos e redenção.",
+                "popularity": 321.9348,
+                "poster_path": "/hSvhZRkbYD9crC4nqy8uCk9EdFH.jpg",
+                "release_date": "2026-01-28",
+                "title": "Missão Refúgio",
+                "video": false,
+                "vote_average": 6.7,
+                "vote_count": 427
+            },
+            {
+                "adult": false,
+                "backdrop_path": "/8Tfys3mDZVp4tNoH2ktm06a0Tau.jpg",
+                "genre_ids": [
+                    878,
+                    12
+                ],
+                "id": 687163,
+                "original_language": "en",
+                "original_title": "Project Hail Mary",
+                "overview": "O professor de ciências Ryland Grace acorda em uma espaçonave anos-luz de casa sem memória de quem ele é ou como chegou lá. Enquanto sua memória volta, ele começa a descobrir sua missão: desvendar o misteriosa substância que está causando a morte do Sol.",
+                "popularity": 314.9754,
+                "poster_path": "/bOzG3SG6gBxHGGHYiq7xXeNb1bG.jpg",
+                "release_date": "2026-03-15",
+                "title": "Devoradores de Estrelas",
+                "video": false,
+                "vote_average": 8.163,
+                "vote_count": 738
+            },
+            {
+                "adult": false,
+                "backdrop_path": "/tq3h43fZy0H80vzf47MAY7R9Mxo.jpg",
+                "genre_ids": [
+                    16,
+                    35,
+                    10751
+                ],
+                "id": 1297842,
+                "original_language": "en",
+                "original_title": "GOAT",
+                "overview": "Uma pequena cabra com grandes sonhos recebe uma oportunidade única na vida de se juntar aos profissionais e jogar berrobol, um esporte de alta intensidade, misto e de contato total, dominado pelos animais mais rápidos e ferozes do mundo.",
+                "popularity": 308.0166,
+                "poster_path": "/x0SRTrltSJi1iQiIAUpyvkxnr41.jpg",
+                "release_date": "2026-02-11",
+                "title": "Um Cabra Bom de Bola",
+                "video": false,
+                "vote_average": 7.819,
+                "vote_count": 218
+            },
+            {
+                "adult": false,
+                "backdrop_path": "/gCmfeKmEAZBP5gcXpiqb0gii9rS.jpg",
+                "genre_ids": [
+                    27,
+                    53,
+                    35
+                ],
+                "id": 1198994,
+                "original_language": "en",
+                "original_title": "Send Help",
+                "overview": "Após um acidente aéreo, um chefe e uma funcionária que se odeiam são os únicos sobreviventes. Isolados numa ilha deserta, eles precisam decidir se cooperam ou competem para escapar, mas é difícil deixar para trás os conflitos do escritório.",
+                "popularity": 264.4895,
+                "poster_path": "/furPD78BZsKAWZoGvoqArIJYPy2.jpg",
+                "release_date": "2026-01-22",
+                "title": "Socorro!",
+                "video": false,
+                "vote_average": 7.1,
+                "vote_count": 708
+            },
+            {
+                "adult": false,
+                "backdrop_path": "/1fkuBPid72KGS6WmtkEXMftZtkE.jpg",
+                "genre_ids": [
+                    80,
+                    18
+                ],
+                "id": 875828,
+                "original_language": "en",
+                "original_title": "Peaky Blinders: The Immortal Man",
+                "overview": "Após o envolvimento do filho em um complô nazista, o gângster Tommy Shelby precisa deixar o exílio e voltar a Birmingham para salvar a família e a nação.",
+                "popularity": 230.4877,
+                "poster_path": "/8XLNDeumvz0cXa6sntZJ6p4zfLb.jpg",
+                "release_date": "2026-03-05",
+                "title": "Peaky Blinders: O Homem Imortal",
+                "video": false,
+                "vote_average": 7.342,
+                "vote_count": 562
+            },
+            {
+                "adult": false,
+                "backdrop_path": "/hz7TdCrpLLt2Dz7S3PS2HG9rpAO.jpg",
+                "genre_ids": [
+                    27,
+                    9648,
+                    80
+                ],
+                "id": 1159559,
+                "original_language": "en",
+                "original_title": "Scream 7",
+                "overview": "Quando um novo Ghostface surge na pacata cidade onde Sidney Prescott reconstruiu sua vida, seus medos mais sombrios se tornam reais enquanto sua filha se torna o próximo alvo do assassino. Determinada a proteger sua família, Sidney terá que enfrentar os horrores do seu passado para acabar com o massacre de uma vez por todas.",
+                "popularity": 245.2893,
+                "poster_path": "/rEevavl5vebCVEd5imx7D1k8nmV.jpg",
+                "release_date": "2026-02-25",
+                "title": "Pânico 7",
+                "video": false,
+                "vote_average": 5.767,
+                "vote_count": 491
+            },
+            {
+                "adult": false,
+                "backdrop_path": "/2t25zHKX3PAUZWppuLD36JGdgCA.jpg",
+                "genre_ids": [
+                    80,
+                    53
+                ],
+                "id": 1171145,
+                "original_language": "en",
+                "original_title": "Crime 101",
+                "overview": "Um ladrão enigmático realiza assaltos de alto risco ao longo da icônica rodovia 101. Quando ele mira o golpe de sua vida — na esperança de que este seja seu último trabalho —, seu caminho cruza com o de uma corretora de seguros desiludida, forçando os dois a colaborar. Determinado a desvendar o caso, um detetive implacável se aproxima da operação.",
+                "popularity": 226.54,
+                "poster_path": "/hHnEDdzdmK8ZyTfkvWz2BI64YXY.jpg",
+                "release_date": "2026-02-11",
+                "title": "Caminhos do Crime",
+                "video": false,
+                "vote_average": 7,
+                "vote_count": 221
+            },
+            {
+                "adult": false,
+                "backdrop_path": "/6yeVcxFR0j08vlv2OlL6zbewm4D.jpg",
+                "genre_ids": [
+                    28,
+                    878,
+                    53
+                ],
+                "id": 1265609,
+                "original_language": "en",
+                "original_title": "War Machine",
+                "overview": "Em sua última missão de treinamento, um engenheiro de combate precisa liderar sua equipe de elite em uma luta pela sobrevivência contra uma máquina mortal.",
+                "popularity": 214.2475,
+                "poster_path": "/48h40o6Q97hZaqH0g7bOiXOrImX.jpg",
+                "release_date": "2026-02-12",
+                "title": "Máquina de Guerra",
+                "video": false,
+                "vote_average": 7.279,
+                "vote_count": 1224
+            },
+            {
+                "adult": false,
+                "backdrop_path": "/wns4x1GyxCudgOZRyhXKjXVJf3T.jpg",
+                "genre_ids": [
+                    12,
+                    53,
+                    878
+                ],
+                "id": 840464,
+                "original_language": "en",
+                "original_title": "Greenland 2: Migration",
+                "overview": "Tendo encontrado a segurança do bunker da Groenlândia depois que o cometa Clarke dizimou a Terra, a família Garrity deve agora arriscar tudo para embarcar em uma jornada angustiante através do deserto da Europa para encontrar um novo lar.",
+                "popularity": 215.4902,
+                "poster_path": "/s6nzVekLSd1y0vGjLz8WPfC1Sau.jpg",
+                "release_date": "2026-01-07",
+                "title": "Destruição Final 2",
+                "video": false,
+                "vote_average": 6.469,
+                "vote_count": 752
+            },
+            {
+                "adult": false,
+                "backdrop_path": "/61RYedFgX1K07xgVIvdJzukSR4g.jpg",
+                "genre_ids": [
+                    35,
+                    18,
+                    10751,
+                    10749
+                ],
+                "id": 848116,
+                "original_language": "hi",
+                "original_title": "रॉकी और रानी की प्रेम कहानी",
+                "overview": "",
+                "popularity": 150.1494,
+                "poster_path": "/vTQIqlxUkOuyf2UKhlM2OUaFGKz.jpg",
+                "release_date": "2023-07-28",
+                "title": "रॉकी और रानी की प्रेम कहानी",
+                "video": false,
+                "vote_average": 6.045,
+                "vote_count": 78
+            },
+            {
+                "adult": false,
+                "backdrop_path": "/lgotja3xMoJZbynwHfcQcJAEMWH.jpg",
+                "genre_ids": [
+                    16,
+                    35,
+                    12,
+                    10751,
+                    9648
+                ],
+                "id": 1084242,
+                "original_language": "en",
+                "original_title": "Zootopia 2",
+                "overview": "Os detetives Judy Hopps e Nick Wilde se encontram na trilha sinuosa de um réptil misterioso que chega a Zootopia e vira a metrópole dos mamíferos de cabeça para baixo.",
+                "popularity": 142.1157,
+                "poster_path": "/fOCTW3D6RywUzoxpvxF7G6YM5bT.jpg",
+                "release_date": "2025-11-26",
+                "title": "Zootopia 2",
+                "video": false,
+                "vote_average": 7.599,
+                "vote_count": 2389
+            },
+            {
+                "adult": false,
+                "backdrop_path": "/u53UYu5XG2hNgWGvs3xGhAVzypl.jpg",
+                "genre_ids": [
+                    16,
+                    10751,
+                    878,
+                    35,
+                    12
+                ],
+                "id": 1327819,
+                "original_language": "en",
+                "original_title": "Hoppers",
+                "overview": "Mabel é uma jovem amante da natureza que tenta impedir o prefeito Jerry de construir uma rodovia que destruirá suas florestas locais. Graças a um experimento secreto de troca de cérebros, Mabel consegue transferir sua mente para um castor robô e segue para um lago, onde refugiados da industrialização invasora desembarcaram. Lá, ela tenta convencer os animais, liderados pelo castor majestoso Rei George, a se juntarem a ela e impedirem a construção da rodovia.",
+                "popularity": 127.9061,
+                "poster_path": "/ftPFJBGbldoWiiPrmesW96zBzdH.jpg",
+                "release_date": "2026-03-04",
+                "title": "Cara de Um, Focinho de Outro",
+                "video": false,
+                "vote_average": 7.6,
+                "vote_count": 340
+            },
+            {
+                "adult": false,
+                "backdrop_path": "/3Vq8otoGevbhcZAKY2devVbPs6L.jpg",
+                "genre_ids": [
+                    27,
+                    35,
+                    12
+                ],
+                "id": 1381216,
+                "original_language": "en",
+                "original_title": "Lake Jesup: Bonecrusher's Revenge",
+                "overview": "No lago mais perigoso da Flórida, um jacaré gigante espalha terror ao iniciar uma matança para retomar seu território. Para detê-lo, um domador de jacarés e ex-presidiário recebe a chance de apagar seu passado se conseguir caçar a criatura.",
+                "popularity": 126.1267,
+                "poster_path": "/lpzEoqapKvczwg9tFeQ07BfZRdy.jpg",
+                "release_date": "2024-05-01",
+                "title": "13 Dias no Lago da Morte",
+                "video": false,
+                "vote_average": 6.103,
+                "vote_count": 29
+            },
+            {
+                "adult": false,
+                "backdrop_path": "/yJi6g0CnsqANLNuVaRX28tZxeHX.jpg",
+                "genre_ids": [
+                    27,
+                    9648
+                ],
+                "id": 1193501,
+                "original_language": "en",
+                "original_title": "Whistle",
+                "overview": "Um grupo de estudantes disfuncionais se depara com um Apito da Morte asteca amaldiçoado. Logo, eles descobrem que usar o objeto produz um som aterrorizante capaz de prever suas futuras mortes.",
+                "popularity": 126.1492,
+                "poster_path": "/1tX11KQzujSDXdszFNRvQbbNi72.jpg",
+                "release_date": "2026-01-20",
+                "title": "O Som da Morte",
+                "video": false,
+                "vote_average": 5.98,
+                "vote_count": 202
+            },
+            {
+                "adult": false,
+                "backdrop_path": "/8zyQbsmMlXfLkcctjNz5YZZwpkw.jpg",
+                "genre_ids": [
+                    27
+                ],
+                "id": 999136,
+                "original_language": "en",
+                "original_title": "Do Not Enter",
+                "overview": "Um grupo de exploradores investiga um antigo hotel abandonado, encontrando um estranho ser sobrenatural e um grupo rival em busca de um lendário tesouro escondido.",
+                "popularity": 129.4298,
+                "poster_path": "/stM9N7eJmHKLmFR59JG4tLdN7Wk.jpg",
+                "release_date": "2026-03-19",
+                "title": "Não Entre",
+                "video": false,
+                "vote_average": 5.286,
+                "vote_count": 42
+            },
+            {
+                "adult": false,
+                "backdrop_path": "/vSQSYd2zZTqc0zmHImwWEGGluMI.jpg",
+                "genre_ids": [
+                    10749,
+                    18
+                ],
+                "id": 1316092,
+                "original_language": "en",
+                "original_title": "\"Wuthering Heights\"",
+                "overview": "O órfão Heathcliff é acolhido ainda criança pela família Earnshaw e apaixona-se pela pequena Catherine. O afeto, embora correspondido, transforma-se num amor impossível. Tal vínculo devastador é envolto por uma atmosfera sombria e um teor dramático e audaz.",
+                "popularity": 127.6701,
+                "poster_path": "/762vOiAWzosAH95sKLzUqYaAoHR.jpg",
+                "release_date": "2026-02-11",
+                "title": "“O Morro dos Ventos Uivantes”",
+                "video": false,
+                "vote_average": 6.4,
+                "vote_count": 583
+            }
+        ],
+        "total_pages": 55912,
+        "total_results": 1118234
+    }
+}
