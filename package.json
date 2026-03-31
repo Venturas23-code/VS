@@ -23,27 +23,18 @@
       "target": [
         "dmg",
         "zip"
-      ],
-      "arch": [
-        "x64",
-        "arm64"
       ]
     },
     "win": {
-      "target": "nsis",
-      "arch": [
-        "x64"
-      ]
+      "target": "nsis"
     },
     "linux": {
       "target": [
         "AppImage",
         "deb"
-      ],
-      "arch": [
-        "x64"
       ]
-    }
+    },
+    "publish": "github"
   },
   "keywords": [],
   "author": {
