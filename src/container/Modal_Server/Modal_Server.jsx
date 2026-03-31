@@ -20,6 +20,11 @@ export default function Modal_Server(movies) {
         return payload?.url ?? payload?.embed_url ?? payload?.iframe ?? payload?.src ?? null;
     };
 
+    const normalizeVideoServerList = (payload) => {
+        if (!payload) return [];
+        return Array.isArray(payload) ? payload : [payload];
+    };
+
     useEffect(() => {
         const movieCards = document.querySelectorAll('.MovieCard');
         console.log(movies)
@@ -55,6 +60,18 @@ export default function Modal_Server(movies) {
                     const url = card.getAttribute('data-url');
                     open(url, '_blank');
                     setProvedor('reidoscanais');
+                } else if (provedor === 'streamverde') {
+                    fetch(`http://localhost:3000/api/video/streamverde/${encodeURIComponent(url)}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        const streamData = Array.isArray(data.videoResults)
+                            ? data.videoResults[0]
+                            : data.videoResults;
+                        const streamUrl = streamData?.decodedUrl || streamData?.streamUrl || streamData?.embedUrl || streamData?.url || url;
+                        if (!streamUrl) return;
+                        window.open(streamUrl, '_blank', 'noopener,noreferrer');
+                        console.log(data.videoResults);
+                    });
                 } else if (provedor === 'pomfy') {
                     const id = card.getAttribute('data-url');
                     fetch(`http://localhost:3000/api/video/pomfy/${encodeURIComponent(id)}`)
@@ -117,8 +134,9 @@ export default function Modal_Server(movies) {
         ))
     }
     const renderEP = () => {
-        return videoServer.map(video => (
-            <div className='option' data-url={video.url || video.url_episodio}>
+        const videoList = normalizeVideoServerList(videoServer);
+        return videoList.map((video, index) => (
+            <div className='option' key={video.url || video.url_episodio || video.decodedUrl || index} data-url={video.url || video.url_episodio || video.decodedUrl}>
                 {video.server || video.numero_titulo || 'Abrir'}
             </div>
         ))
@@ -160,6 +178,13 @@ export default function Modal_Server(movies) {
                     if (!iframeUrl) return;
                     window.open(iframeUrl, '_blank', 'noopener,noreferrer');
                     console.log('Abrindo iframe:', iframeUrl);
+                }
+
+                if (provedor === 'streamverde') {
+                    const streamData = Array.isArray(videoServer) ? videoServer[0] : videoServer;
+                    const streamUrl = streamData?.decodedUrl || streamData?.url || url;
+                    if (!streamUrl) return;
+                    window.open(streamUrl, '_blank', 'noopener,noreferrer');
                 }
             };
 

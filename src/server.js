@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const prov = require('./provedores.json');
+const { default: axios } = require('axios');
 
 const app = express();
 const port = 3000;
@@ -10,11 +11,13 @@ app.use(cors());
 const AnimeFireClient = require('./server/AnimeFire');
 const PobreflixClient = require('./server/Pobreflix');
 const PomfyClient = require('./server/Pomfy');
-const { default: axios } = require('axios');
+const SteamVerdeClient = require("./server/StreamVerde");
+
 
 const scarperAnimeFire = new AnimeFireClient();
 const scarperPobreflix = new PobreflixClient();
 const scarperPomfy = new PomfyClient();
+const scarperSteamVerde = new SteamVerdeClient();
 
 const externalRequestHeaders = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36',
@@ -92,6 +95,9 @@ app.get('/api/search/:provider/:query', async (req, res) => {
             const channels = extractChannelsArray(response.data);
             const results = channels.map(toReiDosCanaisItem);
             res.json({ results });
+        } else if (provider == "streamverde") {
+            const results = await scarperSteamVerde.pesquisa(searchQuery);
+            res.json({ results });
         } else if (provider === 'pomfy') {
             const options = {
                 method: 'GET',
@@ -140,6 +146,10 @@ app.get('/api/video/:provider/:videoId', async (req, res) => {
             res.json({ videoResults });
             return;
         }
+        if (provider === 'streamverde') {
+            const videoResults = await scarperSteamVerde.video(videoId);
+            return res.json({ videoResults });
+        }
         res.json({ videoResults });
     } catch (error) {
         console.error('Error:', error);
@@ -165,6 +175,9 @@ app.get('/api/filmes/:provider/:page', async (req, res) => {
             });
             const channels = extractChannelsArray(response.data);
             const filmesResults = channels.map(toReiDosCanaisItem);
+            res.json({ filmesResults });
+        } else if (provider == "streamverde") {
+            const filmesResults = await scarperSteamVerde.canais();
             res.json({ filmesResults });
         } else if (provider === 'pomfy') {
             const options = {

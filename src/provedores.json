@@ -15,12 +15,19 @@
         "nome": "Rei dos Canais",
         "CNL": false,
         "logo": "https://reidoscanais.ooo/icon.png",
-        "comando": "reidoscanais"
+        "comando": "reidoscanais",
+        "warning": "Audio pode deteriorar aleatoriamente, reinicie o player ou troque de provedor."
     },
     {
         "nome": "Pomfy",
         "CNL": true,
         "logo": "https://pomfy.online/pomfylogofullcolor.png",
         "comando": "pomfy"
+    },
+    {
+        "nome": "Stream Verde",
+        "CNL": true,
+        "logo": "https://streamverde.net/wp-content/uploads/2023/02/streamverde.png",
+        "comando": "streamverde"
     }
 ]
