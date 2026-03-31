@@ -20,7 +20,7 @@ O projeto combina:
 	- AnimeFire
 	- Rei dos Canais
 	- Pomfy
-
+	- StreamVerde
 ## Tecnologias 🛠️
 
 - Electron Forge
