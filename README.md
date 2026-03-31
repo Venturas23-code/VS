@@ -21,6 +21,7 @@ O projeto combina:
 	- Rei dos Canais
 	- Pomfy
 	- StreamVerde
+
 ## Tecnologias 🛠️
 
 - Electron Forge
