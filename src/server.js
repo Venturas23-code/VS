@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const prov = require('./provedores.json');
+const { default: axios } = require('axios');
 
 const app = express();
 const port = 3000;
@@ -11,7 +12,7 @@ const AnimeFireClient = require('./server/AnimeFire');
 const PobreflixClient = require('./server/Pobreflix');
 const PomfyClient = require('./server/Pomfy');
 const SteamVerdeClient = require("./server/StreamVerde");
-const { default: axios } = require('axios');
+
 
 const scarperAnimeFire = new AnimeFireClient();
 const scarperPobreflix = new PobreflixClient();
@@ -147,7 +148,6 @@ app.get('/api/video/:provider/:videoId', async (req, res) => {
         }
         if (provider === 'streamverde') {
             const videoResults = await scarperSteamVerde.video(videoId);
-            console.log('[ROTA RESULTADO]', videoResults);
             return res.json({ videoResults });
         }
         res.json({ videoResults });

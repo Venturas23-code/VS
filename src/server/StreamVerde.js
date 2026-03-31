@@ -1,8 +1,51 @@
 const axios = require('axios');
 const cheerio = require('cheerio');
-const puppeteer = require('puppeteer');
 
 class StreamVerdeClient {
+    constructor() {
+        this.baseURL = 'https://streamverde.net/';
+        this.headers = this.getHeaders();
+        this.maxRetries = 2;
+        this.retryDelay = 8000; // 8 segundos
+    }
+
+    delay(ms) {
+        return new Promise((resolve) => setTimeout(resolve, ms));
+    }
+
+    decodeBase64Value(value) {
+        if (!value || typeof value !== 'string') return null;
+
+        try {
+            const cleanValue = value.trim().replace(/\s+/g, '');
+            const normalized = cleanValue
+                .replace(/-/g, '+')
+                .replace(/_/g, '/');
+            const padding = normalized.length % 4;
+            const padded = padding ? normalized + '='.repeat(4 - padding) : normalized;
+
+            return Buffer.from(padded, 'base64').toString('utf8').trim() || null;
+        } catch (_) {
+            return null;
+        }
+    }
+
+    extractDecodedUrlFromScripts($) {
+        let decodedUrl = null;
+
+        $('script').each((_, element) => {
+            if (decodedUrl) return;
+
+            const scriptContent = $(element).html() || '';
+            const match = scriptContent.match(/encodedUrl\s*[:=]\s*['\"]([^'\"]+)['\"]/i);
+            if (!match || !match[1]) return;
+
+            decodedUrl = this.decodeBase64Value(match[1]);
+        });
+
+        return decodedUrl;
+    }
+
     getHeaders() {
         return {
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36',
@@ -16,7 +59,7 @@ class StreamVerdeClient {
 
     async canais() {
         try {
-            const url = 'https://streamverde.net/canais/';
+            const url = `${this.baseURL}canais/`;
             const response = await axios.get(url, {
                 headers: this.getHeaders()
             });
@@ -84,33 +127,42 @@ class StreamVerdeClient {
 
     async video(channelUrl) {
         try {
-            const decodedUrl = decodeURIComponent(channelUrl);
+            for (let attempt = 0; attempt <= this.maxRetries; attempt++) {
+                const response = await axios.get(channelUrl, {
+                    headers: this.getHeaders()
+                });
+                const $ = cheerio.load(response.data);
+                const streamUrl =
+                    $('div.video-js.vjs-live video.vjs-tech').attr('src') ||
+                    $('video source').attr('src') ||
+                    $('video').attr('src') ||
+                    null;
 
-            // pega o slug final da url
-            const slug = decodedUrl
-                .split('/')
-                .filter(Boolean)
-                .pop();
+                const embedUrl =
+                    $('iframe').attr('src') ||
+                    null;
 
-            if (!slug) {
-                throw new Error('Slug do canal não encontrado');
+                const poster =
+                    $('video').attr('poster') ||
+                    null;
+
+                const decodedUrl = this.extractDecodedUrlFromScripts($);
+
+                if (streamUrl || embedUrl || decodedUrl || attempt === this.maxRetries) {
+                    return {
+                        streamUrl,
+                        embedUrl,
+                        decodedUrl,
+                        poster,
+                        url: streamUrl || embedUrl || decodedUrl,
+                        provedor: 'streamverde'
+                    };
+                }
+
+                await this.delay(this.retryDelay);
             }
 
-            const normalizedSlug = slug.replace(/-/g, '');
-
-            const streamUrl =
-                `https://streamverde.s27-usa-cloudfront-net.online/fontes/streamverde/${normalizedSlug}.m3u8`;
-
-            console.log('[STREAM URL]', streamUrl);
-
-            // opcional: validar se existe
-            const response = await axios.get(streamUrl, {
-                headers: this.getHeaders()
-            });
-
-            return {
-                url: streamUrl
-            };
+            return null;
         } catch (error) {
             console.error('[StreamVerde video]', error.message);
             return null;

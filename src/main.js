@@ -1,4 +1,4 @@
-import { app, BrowserWindow, session } from 'electron';
+import { app, BrowserWindow, Menu, session } from 'electron';
 import path from 'node:path';
 import started from 'electron-squirrel-startup';
 import { ElectronBlocker } from '@ghostery/adblocker-electron';
@@ -16,6 +16,7 @@ const createWindow = () => {
   const mainWindow = new BrowserWindow({
     width: 800,
     height: 600,
+    autoHideMenuBar: true,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
     },
@@ -29,13 +30,16 @@ const createWindow = () => {
   }
 
   // Open the DevTools.
-  mainWindow.webContents.openDevTools();
+  // mainWindow.webContents.openDevTools();
+  mainWindow.removeMenu();
 };
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.whenReady().then(async () => {
+  Menu.setApplicationMenu(null);
+
   const cachePath = path.join(app.getPath('userData'), 'adblocker-engine.bin');
 
   try {
@@ -58,6 +62,11 @@ app.whenReady().then(async () => {
       createWindow();
     }
   });
+});
+
+app.on('browser-window-created', (_, window) => {
+  window.setAutoHideMenuBar(true);
+  window.removeMenu();
 });
 
 // Quit when all windows are closed, except on macOS. There, it's common
