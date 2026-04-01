@@ -76,7 +76,7 @@ jobs:
 
                 ### macOS
                 - Portable: `.zip`
-                files: |
+            files: |
                 release-files/**/*Setup.exe
                 release-files/**/*.zip
                 release-files/**/*.deb
