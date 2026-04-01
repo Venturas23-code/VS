@@ -30,12 +30,13 @@ jobs:
           cache: npm
 
       - name: Install dependencies
-        run: npm ci
+        run: npm install
 
-      - name: Build Vite then package app
-        run: |
-          npm run build
-          npm run make
+      - name: Build Vite
+        run: npm run build
+
+      - name: Build Electron
+        run: npm run make
 
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
