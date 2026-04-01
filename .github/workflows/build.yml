@@ -30,28 +30,26 @@ jobs:
           cache: npm
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
-      - name: Build Electron
+      - name: Build Electron packages
         run: npm run make
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
         with:
-            name: build-${{ matrix.os }}
-            path: |
-                out/**/*.exe
-                out/**/*.deb
-                out/**/*.rpm
-                out/**/*.zip
-                out/**/*.AppImage
+          name: build-${{ matrix.os }}
+          path: out/make/
 
   release:
+    name: Create GitHub Release
     needs: build
     runs-on: ubuntu-latest
 
     steps:
-      - name: Download all artifacts
+      - name: Download all build artifacts
         uses: actions/download-artifact@v4
         with:
           path: release-files
@@ -59,26 +57,12 @@ jobs:
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-            body: |
-                ## Downloads
-
-                ### Windows
-                - Installer: `VS Setup.exe`
-                - Portable: `.zip`
-
-                ### Linux
-                - Portable: `.zip`
-                - Debian: `.deb`
-                - RPM: `.rpm`
-
-                ### macOS
-                - Portable: `.zip`
-            files: |
-                release-files/**/*Setup.exe
-                release-files/**/*.zip
-                release-files/**/*.deb
-                release-files/**/*.rpm
-                release-files/**/*.AppImage
-                release-files/**/*.nupkg
+          files: |
+            release-files/**/*.exe
+            release-files/**/*.zip
+            release-files/**/*.deb
+            release-files/**/*.rpm
+            release-files/**/*.AppImage
+            release-files/**/*.nupkg
         env:
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
