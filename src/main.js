@@ -1,4 +1,4 @@
-import { app, BrowserWindow, Menu, session } from 'electron';
+import { app, BrowserWindow, Menu, session, shell } from 'electron';
 import path from 'node:path';
 import started from 'electron-squirrel-startup';
 const fs = require('fs');
@@ -29,7 +29,7 @@ const createWindow = () => {
   }
 
   // Open the DevTools.
-  mainWindow.webContents.openDevTools();
+  //mainWindow.webContents.openDevTools();
   mainWindow.removeMenu();
 };
 
@@ -83,8 +83,16 @@ app.on('window-all-closed', () => {
 app.on('web-contents-created', (event, contents) => {
   contents.setWindowOpenHandler(({ url }) => {
     const urlAtual = contents.getURL();
+    
+    // Allow localhost in development
     if (urlAtual.includes('localhost') || urlAtual.includes('127.0.0.1')) {
       return { action: 'allow' };
+    }
+
+    // Open external URLs in the default browser
+    if (url.startsWith('http://') || url.startsWith('https://')) {
+      shell.openExternal(url);
+      return { action: 'deny' };
     }
 
     console.log('Pop-up safado bloqueado:', url);
