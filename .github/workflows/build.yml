@@ -32,9 +32,6 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Build Vite
-        run: npm start
-
       - name: Build Electron
         run: npm run make
 
