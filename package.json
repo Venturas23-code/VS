@@ -3,7 +3,7 @@
   "productName": "VS",
   "version": "1.0.0",
   "description": "Scraper de filmes e séries",
-  "main": ".vite/build/main.js",
+  "main": "./src/main.js",
   "private": true,
   "scripts": {
     "start": "electron-forge start",
