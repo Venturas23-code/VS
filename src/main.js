@@ -5,6 +5,8 @@ const fs = require('fs');
 
 import './server'
 
+let mainWindowId = null;
+
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (started) {
   app.quit();
@@ -31,6 +33,7 @@ const createWindow = () => {
   // Open the DevTools.
   //mainWindow.webContents.openDevTools();
   mainWindow.removeMenu();
+  mainWindowId = mainWindow.id;
 };
 
 // This method will be called when Electron has finished
@@ -82,7 +85,14 @@ app.on('window-all-closed', () => {
 // code. You can also put them in separate files and import them here.
 app.on('web-contents-created', (event, contents) => {
   contents.setWindowOpenHandler(({ url }) => {
+    const sourceWindow = BrowserWindow.fromWebContents(contents);
+    const isMainWindow = sourceWindow?.id === mainWindowId;
     const isHttpUrl = url.startsWith('http://') || url.startsWith('https://');
+
+    if (!isMainWindow) {
+      console.log('Pop-up bloqueado em janela secundaria:', url);
+      return { action: 'deny' };
+    }
 
     if (isHttpUrl) {
       return {
