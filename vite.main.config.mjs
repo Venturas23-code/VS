@@ -7,7 +7,11 @@ export default defineConfig({
     base: './',
     build: {
         rollupOptions: {
-            external: ['@ghostery/adblocker-electron', 'cross-fetch']
+            external: [
+                'electron',
+                '@ghostery/adblocker-electron',
+                'cross-fetch'
+            ]
         }
     }
 });
