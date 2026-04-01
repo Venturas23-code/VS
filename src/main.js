@@ -1,4 +1,4 @@
-import { app, BrowserWindow, Menu, session, shell } from 'electron';
+import { app, BrowserWindow, Menu, session } from 'electron';
 import path from 'node:path';
 import started from 'electron-squirrel-startup';
 const fs = require('fs');
@@ -82,17 +82,22 @@ app.on('window-all-closed', () => {
 // code. You can also put them in separate files and import them here.
 app.on('web-contents-created', (event, contents) => {
   contents.setWindowOpenHandler(({ url }) => {
-    const urlAtual = contents.getURL();
-    
-    // Allow localhost in development
-    if (urlAtual.includes('localhost') || urlAtual.includes('127.0.0.1')) {
-      return { action: 'allow' };
-    }
+    const isHttpUrl = url.startsWith('http://') || url.startsWith('https://');
 
-    // Open external URLs in the default browser
-    if (url.startsWith('http://') || url.startsWith('https://')) {
-      shell.openExternal(url);
-      return { action: 'deny' };
+    if (isHttpUrl) {
+      return {
+        action: 'allow',
+        overrideBrowserWindowOptions: {
+          width: 1200,
+          height: 800,
+          autoHideMenuBar: true,
+          webPreferences: {
+            contextIsolation: true,
+            nodeIntegration: false,
+            sandbox: true,
+          },
+        },
+      };
     }
 
     console.log('Pop-up safado bloqueado:', url);
