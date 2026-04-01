@@ -63,5 +63,9 @@ module.exports = {
       [FuseV1Options.EnableEmbeddedAsarIntegrityValidation]: true,
       [FuseV1Options.OnlyLoadAppFromAsar]: true,
     }),
+    {
+      name: '@electron-forge/plugin-auto-unpack-natives',
+      config: {}
+    }
   ],
 };
