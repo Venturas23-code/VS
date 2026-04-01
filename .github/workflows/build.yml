@@ -1,10 +1,13 @@
-name: Build All Platforms
+name: Build and Release
 
 on:
   push:
     tags:
       - 'v*'
   workflow_dispatch:
+
+permissions:
+  contents: write
 
 jobs:
   build:
@@ -14,30 +17,46 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        include:
-          - os: windows-latest
-            build-script: dist:win
-          - os: ubuntu-latest
-            build-script: dist:linux
-          - os: macos-latest
-            build-script: dist:mac
+        os: [windows-latest, ubuntu-latest, macos-latest]
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: npm
 
-      - run: npm ci
+      - name: Install dependencies
+        run: npm ci
 
-      - name: Build App
-        run: npm run ${{ matrix.build-script }}
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build renderer
+        run: npm run build
 
-      - uses: actions/upload-artifact@v4
+      - name: Package app
+        run: npm run make
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
         with:
           name: build-${{ matrix.os }}
-          path: dist/
+          path: out/
+
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: release-files
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: release-files/**/*
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
