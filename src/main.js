@@ -1,7 +1,6 @@
 import { app, BrowserWindow, Menu, session } from 'electron';
 import path from 'node:path';
 import started from 'electron-squirrel-startup';
-import { ElectronBlocker } from '@ghostery/adblocker-electron';
 const fs = require('fs');
 
 import './server'
@@ -30,7 +29,7 @@ const createWindow = () => {
   }
 
   // Open the DevTools.
-  // mainWindow.webContents.openDevTools();
+  mainWindow.webContents.openDevTools();
   mainWindow.removeMenu();
 };
 
@@ -43,6 +42,7 @@ app.whenReady().then(async () => {
   const cachePath = path.join(app.getPath('userData'), 'adblocker-engine.bin');
 
   try {
+    const { ElectronBlocker } = await import('@ghostery/adblocker-electron');
     const blocker = await ElectronBlocker.fromPrebuiltAdsAndTracking(fetch, {
       path: cachePath,
       read: fs.promises.readFile,
@@ -51,7 +51,7 @@ app.whenReady().then(async () => {
     blocker.enableBlockingInSession(session.defaultSession);
     console.log('Adblocker loaded successfully');
   } catch (error) {
-    console.error('Failed to load adblocker:', error);
+    console.warn('Adblocker unavailable, continuing without it:', error?.message || error);
   }
   createWindow();
 

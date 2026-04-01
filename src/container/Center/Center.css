@@ -18,6 +18,32 @@
     gap: 20px;
     position: absolute;
 }
+.provider-content-list{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin: 0 0 8px 0;
+}
+.tag{
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    border-radius: 999px;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 6px 12px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+.tag:hover{
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-1px);
+}
+.tag.active{
+    background: rgba(255, 255, 255, 0.95);
+    color: #111;
+}
 .MovieCard{
     height: 530px;
 }
@@ -368,10 +394,12 @@
     flex-direction: column;
     z-index: 2;
     width: 200px;
+    height: 340px;
     position: relative;
     top: -320px;
     left: 1300px;
     text-align: center;
+    overflow-y: auto;
 }
 .capa_audio{
     position: relative;

@@ -84,9 +84,9 @@ app.get('/api/search/:provider/:query', async (req, res) => {
 
         if (provider === 'animefire') {
             const results = await scarperAnimeFire.searchAnime(searchQuery);
-            res.json({ results });scarperPobreflix
+            res.json({ results });
         } else if (provider === 'pobreflix') {
-            const results = await pesquisa(searchQuery);
+            const results = await scarperPobreflix.pesquisa(searchQuery);
             res.json({ results });
         } else if (provider === 'reidoscanais') {
             const response = await axios.get(`https://api.reidoscanais.ooo/search?q=${encodeURIComponent(searchQuery)}`, {
@@ -209,23 +209,43 @@ app.get('/api/filmes/:provider/:page', async (req, res) => {
         sendProviderError(res, error, 'Provider');
     }
 });
-app.get('/api/eps/:provider/:episodeUrl', async (req, res) => {
+app.get('/api/series/:provider/:page', async (req, res) => {
     try {
-        const episodeUrl = req.params.episodeUrl; // URL do episódio
+        const page = req.params.page || 1;
         const provider = req.params.provider;
-        if (provider === 'animefire') {
-            const epsResults = await scarperAnimeFire.getEpisodes(episodeUrl);
-            res.json({ epsResults });
-            return;
-        } else if (provider === 'pobreflix') {
-            const epsResults = await scarperPobreflix.video(episodeUrl);
-            res.json({ epsResults });
+        if (provider === 'pobreflix') {
+            const seriesResults = await scarperPobreflix.series(page);
+            return res.json({ seriesResults });
         }
+
+        return res.status(400).json({ error: `Unsupported provider: ${provider}` });
     } catch (error) {
-        console.error('Error:', error);
+        console.error('Error in /api/series:', error?.message || error);
         res.status(500).json({ error: 'An error occurred' });
     }
 });
+const handleEpsRequest = async (req, res) => {
+    try {
+        const episodeUrl = req.params.episodeUrl; // URL do episódio
+        const provider = req.params.provider;
+        const temporada = req.params.temporada || req.query.temporada || null;
+        if (provider === 'animefire') {
+            const epsResults = await scarperAnimeFire.getEpisodes(episodeUrl);
+            return res.json({ epsResults });
+        } else if (provider === 'pobreflix') {
+            const epsResults = await scarperPobreflix.eps(episodeUrl, temporada);
+            return res.json({ epsResults });
+        }
+
+        return res.status(400).json({ error: `Unsupported provider: ${provider}` });
+    } catch (error) {
+        console.error('Error in /api/eps:', error?.message || error);
+        sendProviderError(res, error, 'Provider');
+    }
+};
+
+app.get('/api/eps/:provider/:episodeUrl', handleEpsRequest);
+app.get('/api/eps/:provider/:episodeUrl/:temporada', handleEpsRequest);
 app.get('/api/provedores', async (req, res) => {
     res.json(prov);
 });

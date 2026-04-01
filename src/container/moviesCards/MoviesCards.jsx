@@ -8,8 +8,32 @@ export default function moviesCards({ exportmovies , provedor, searchTerm }) {
     const [endPage, setEndPage] = useState(1);
     const [isLoading, setIsLoading] = useState(false);
     const [activeAbsoluteIndex, setActiveAbsoluteIndex] = useState(0);
+    const [providerContent, setProviderContent] = useState([]);
+    const [activeSection, setActiveSection] = useState('Filmes');
+
+    const normalizeSection = (section) => {
+        if (!section || typeof section !== 'string') return 'filmes';
+        const normalized = section
+            .toLowerCase()
+            .normalize('NFD')
+            .replace(/[\u0300-\u036f]/g, '');
+
+        if (normalized === 'series') return 'series';
+        return 'filmes';
+    };
 
     const normalizeMovieData = (item, provider) => {
+        const inferContentType = (entry, currentProvider) => {
+            if (currentProvider !== 'pobreflix') return 'filmes';
+
+            const combined = `${entry?.url || ''} ${entry?.nome || ''}`.toLowerCase();
+            if (combined.includes('/series') || combined.includes('serie') || combined.includes('season') || combined.includes('temporada')) {
+                return 'series';
+            }
+
+            return 'filmes';
+        };
+
         if (provider === 'pomfy') {
             return {
                 nome: item?.title ?? item?.original_title ?? null,
@@ -19,13 +43,35 @@ export default function moviesCards({ exportmovies , provedor, searchTerm }) {
                 capa_audio: null,
                 capa_quali: null,
                 url: item?.id ?? null,
-                provedor: 'pomfy'
+                provedor: 'pomfy',
+                contentType: 'filmes'
             };
         }
         return {
             ...item,
-            provedor: provider
+            provedor: provider,
+            contentType: item?.contentType || inferContentType(item, provider)
         };
+    };
+
+    const loadProviderContent = async () => {
+        if (!provedor) {
+            setProviderContent([]);
+            return;
+        }
+
+        try {
+            const response = await fetch('http://localhost:3000/api/provedores');
+            const data = await response.json();
+            const selectedProvider = data.find((item) => item.comando === provedor);
+            const contentItems = Array.isArray(selectedProvider?.content) ? selectedProvider.content : [];
+            setProviderContent(contentItems);
+            setActiveSection(contentItems[0] || 'Filmes');
+        } catch (error) {
+            console.error('Erro ao buscar conteudo do provedor:', error);
+            setProviderContent([]);
+            setActiveSection('Filmes');
+        }
     };
 
     const getSafeImageSrc = (rawUrl) => {
@@ -46,7 +92,8 @@ export default function moviesCards({ exportmovies , provedor, searchTerm }) {
 
     const fetchPage = async (page) => {
         if (!provedor) return [];
-        const response = await fetch(`http://localhost:3000/api/filmes/${provedor}/${page}`);
+        const endpoint = normalizeSection(activeSection) === 'series' ? 'series' : 'filmes';
+        const response = await fetch(`http://localhost:3000/api/${endpoint}/${provedor}/${page}`);
         console.log(`Resposta da API para ${provedor} página ${page}:`, response);
         if (!response.ok) {
             const errorText = await response.text();
@@ -54,11 +101,12 @@ export default function moviesCards({ exportmovies , provedor, searchTerm }) {
         }
         const data = await response.json();
         console.log(`Dados da API para ${provedor} página ${page}:`, data);
-        let results = data?.filmesResults?.results ?? data?.filmesResults ?? [];
+        const sectionKey = normalizeSection(activeSection) === 'series' ? 'seriesResults' : 'filmesResults';
+        let results = data?.[sectionKey]?.results ?? data?.[sectionKey] ?? [];
         if (!Array.isArray(results)) {
             results = [];
         }
-        return results.map(item => normalizeMovieData(item, provedor));
+        return results.map((item) => normalizeMovieData({ ...item, contentType: endpoint }, provedor));
         
     };
     const searchFilms = async (query) => {
@@ -98,6 +146,10 @@ export default function moviesCards({ exportmovies , provedor, searchTerm }) {
             }
         };
         loadInitial();
+    }, [provedor, activeSection]);
+
+    useEffect(() => {
+        loadProviderContent();
     }, [provedor]);
 
     useEffect(() => {
@@ -134,7 +186,7 @@ export default function moviesCards({ exportmovies , provedor, searchTerm }) {
         };
 
         loadSearch();
-    }, [searchTerm, provedor]);
+    }, [searchTerm, provedor, activeSection]);
 
     useEffect(() => {
         exportmovies(movies);
@@ -172,7 +224,25 @@ export default function moviesCards({ exportmovies , provedor, searchTerm }) {
         if (moviePosition > lastMoviePosition) return lastMoviePosition;
         return moviePosition;
     };
+    const renderTags = () => {
+        if (!providerContent.length) return null;
 
+        return providerContent.map((tag, index) => (
+            <button
+                type='button'
+                key={index}
+                className={`tag ${activeSection === tag ? 'active' : ''}`}
+                onClick={() => {
+                    setActiveSection(tag);
+                    setStartPage(1);
+                    setEndPage(1);
+                    setActiveAbsoluteIndex(0);
+                }}
+            >
+                {tag}
+            </button>
+        ));
+    };
     const renderMovies = () => {
         const baseAbsoluteIndex = (startPage - 1) * ITEMS_PER_PAGE;
         const hasPrevCard = startPage > 1;
@@ -197,6 +267,7 @@ export default function moviesCards({ exportmovies , provedor, searchTerm }) {
                 {movies.map((movie, index) => (
                     <div
                         data-url={movie.url || movie.link}
+                        data-section={movie.contentType || normalizeSection(activeSection)}
                         className={`MovieCard ${baseAbsoluteIndex + index === activeAbsoluteIndex ? 'active' : ''} ${movie.provedor}`}
                         key={movie.url || `${movie.nome}-${index}`}
                         data-index={index}
@@ -353,7 +424,9 @@ export default function moviesCards({ exportmovies , provedor, searchTerm }) {
 
     return (
         <div className='MoviesCards' id='MoviesCards'>
-            
+            <div className='provider-content-list'>
+                {renderTags()}
+            </div>
             {renderMovies()}
         </div>
     );
