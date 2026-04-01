@@ -149,17 +149,22 @@ export default function Modal_Server(movies) {
                     });
                 } else if (provedor === 'pomfy') {
                     const id = card.getAttribute('data-url');
-                    fetch(`http://localhost:3000/api/video/pomfy/${encodeURIComponent(id)}`)
-                        .then(response => response.json())
-                        .then(data => {
-                            setVideoServer(data.videoResults);
-                            const iframeUrl = getPomfyIframeUrl(data.videoResults);
-                            if (iframeUrl) {
-                                window.open(iframeUrl, '_blank', 'noopener,noreferrer');
-                            }
-                            console.log(data.videoResults);
-                        });
-                    setProvedor('pomfy');
+                    const section = card.getAttribute('data-section');
+                    const isSeries = section === 'series';
+                    console.log(`Pomfy na aba: ${isSeries ? 'series' : 'filmes'}`);
+
+                    if (section === 'series') {
+                        add_videoData(name, 'video', section);
+                        const url = `https://pomfy.online/assistir/${id}?tipo=serie`;
+                        window.open(url, '_blank', 'noopener,noreferrer');
+                        setProvedor('pomfy');
+                    }else {
+                        add_videoData(name, 'video', section);
+
+                        const url = `https://pomfy.online/assistir/${id}`;
+                        window.open(url, '_blank', 'noopener,noreferrer');
+                        setProvedor('pomfy');
+                    }
                 }
             };
             card.addEventListener('click', handleCardClick);
@@ -291,7 +296,9 @@ export default function Modal_Server(movies) {
                         open(arquivoAtual.url, '_blank');
                     }
                 } 
+                
                 if (provedor === 'pomfy') {
+                    
                     const iframeUrl = getPomfyIframeUrl(videoServer);
                     if (!iframeUrl) return;
                     window.open(iframeUrl, '_blank', 'noopener,noreferrer');
@@ -361,7 +368,7 @@ export default function Modal_Server(movies) {
             <div className='background_modal'>
                 <h1 className='Close_modal' id='Close_modal'>Close</h1>
                 {modal_card()}
-                <div className='options_modal'>
+                <div className={`options_modal ${provedor}`}>
                     {provedor === 'pobreflix' && pobreflixStep === 'video' && pobreflixCurrentEpisodes.length > 0 && (
                         <button type='button' className='option' onClick={handleBackToEpisodes}>
                             Voltar para episodios

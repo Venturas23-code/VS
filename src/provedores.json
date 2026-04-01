@@ -26,7 +26,11 @@
         "nome": "Pomfy",
         "CNL": true,
         "logo": "https://pomfy.online/pomfylogofullcolor.png",
-        "comando": "pomfy"
+        "comando": "pomfy",
+        "content":[
+            "Filmes",
+            "Séries"
+        ]
     },
     {
         "nome": "Stream Verde",

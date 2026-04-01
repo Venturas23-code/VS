@@ -35,16 +35,17 @@ export default function moviesCards({ exportmovies , provedor, searchTerm }) {
         };
 
         if (provider === 'pomfy') {
+            const sectionType = item?.contentType === 'series' ? 'series' : 'filmes';
             return {
-                nome: item?.title ?? item?.original_title ?? null,
-                ano: item?.release_date ? item.release_date.split('-')[0] : null,
+                nome: item?.title ?? item?.name ?? item?.original_title ?? item?.original_name ?? null,
+                ano: item?.release_date ? item.release_date.split('-')[0] : (item?.first_air_date ? item.first_air_date.split('-')[0] : null),
                 tempo: null,
                 capa: item?.poster_path ? `https://image.tmdb.org/t/p/w500${item.poster_path}` : null,
                 capa_audio: null,
                 capa_quali: null,
                 url: item?.id ?? null,
                 provedor: 'pomfy',
-                contentType: 'filmes'
+                contentType: sectionType
             };
         }
         return {
@@ -111,7 +112,8 @@ export default function moviesCards({ exportmovies , provedor, searchTerm }) {
     };
     const searchFilms = async (query) => {
         if (!provedor) return [];
-        const response = await fetch(`http://localhost:3000/api/search/${provedor}/${query}`);
+        const section = normalizeSection(activeSection);
+        const response = await fetch(`http://localhost:3000/api/search/${provedor}/${query}?section=${encodeURIComponent(section)}`);
         if (!response.ok) {
             const errorText = await response.text();
             throw new Error(`Falha ao pesquisar (${response.status}): ${errorText}`);
@@ -284,7 +286,7 @@ export default function moviesCards({ exportmovies , provedor, searchTerm }) {
                                 event.currentTarget.src = '';
                             }}
                         />
-                        <h2>{movie.provedor === 'reidoscanais' ? movie.nome : ""}</h2>
+                        <h2>{movie.provedor === 'reidoscanais' || movie.provedor === 'streamverde' ? movie.nome : ""}</h2>
                         <h3 className={`capa_audio ${movie.provedor === 'pobreflix' ? 'active' : 'null'}`}>
                             {movie.provedor === 'pobreflix' ? movie.capa_audio : ''}
                         </h3>

@@ -303,7 +303,7 @@
     object-fit:contain;
     margin: auto;
 }
-.MovieCard.reidoscanais h2{
+.MovieCard h2{
     margin-top: auto;
     margin-bottom: 20px;
     color: white;
@@ -313,11 +313,12 @@
     transform: translateY(30px);
     transition: opacity 0.25s ease, transform 0.25s ease;
 }
-.MovieCard.reidoscanais:hover h2,
-.MovieCard.reidoscanais.active h2{
+.MovieCard:hover h2,
+.MovieCard.active h2{
     opacity: 1;
     transform: translateY(0);
 }
+
 .modal_card{
     width: 100%;
     align-items: center;
@@ -432,4 +433,11 @@
 }
 .capa_quali.null{
     display: none;
+}
+.options_modal.animefire{
+    position: relative;
+    top: -800px;
+    height: 800px;
+    width: 500px;
+    left: 550px;
 }

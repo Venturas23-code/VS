@@ -76,11 +76,21 @@ const toReiDosCanaisItem = (channel) => ({
     provedor: 'reidoscanais'
 });
 
+const normalizeSectionValue = (value) => {
+    const normalized = `${value || ''}`
+        .toLowerCase()
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '');
+
+    return normalized === 'series' ? 'series' : 'filmes';
+};
+
 // Search route
 app.get('/api/search/:provider/:query', async (req, res) => {
     try {
         const searchQuery = req.params.query;
         const provider = req.params.provider;
+        const section = normalizeSectionValue(req.query.section || 'filmes');
 
         if (provider === 'animefire') {
             const results = await scarperAnimeFire.searchAnime(searchQuery);
@@ -99,9 +109,10 @@ app.get('/api/search/:provider/:query', async (req, res) => {
             const results = await scarperSteamVerde.pesquisa(searchQuery);
             res.json({ results });
         } else if (provider === 'pomfy') {
+            const mediaTypeFilter = section === 'series' ? 'tv' : 'movie';
             const options = {
                 method: 'GET',
-                url: 'https://api.themoviedb.org/3/search/movie',
+                url: 'https://api.themoviedb.org/3/search/multi',
                 params: { query: `${searchQuery}`, include_adult: 'false', language: 'pt-BR', page: '1' },
                 headers: {
                     accept: 'application/json',
@@ -112,8 +123,16 @@ app.get('/api/search/:provider/:query', async (req, res) => {
             axios
                 .request(options)
                 .then(resp => {
-                    console.log('Resultados da busca Pomfy:', resp.data?.results);
-                    res.json({ results: resp.data })
+                    const results = Array.isArray(resp.data?.results)
+                        ? resp.data.results
+                            .filter((item) => item?.media_type === mediaTypeFilter)
+                            .map((item) => ({
+                                ...item,
+                                contentType: item?.media_type === 'tv' ? 'series' : 'filmes'
+                            }))
+                        : [];
+                    console.log('Resultados da busca Pomfy:', results);
+                    res.json({ results })
                 })
                 .catch(err => {
                     console.error('Error fetching Pomfy search data:', err);
@@ -216,9 +235,30 @@ app.get('/api/series/:provider/:page', async (req, res) => {
         if (provider === 'pobreflix') {
             const seriesResults = await scarperPobreflix.series(page);
             return res.json({ seriesResults });
-        }
+        } else if (provider === 'pomfy') {
+            const options = {
+                method: 'GET',
+                url: 'https://api.themoviedb.org/3/discover/tv',
+                params: {
+                    include_adult: 'false',
+                    language: 'pt-BR',
+                    page: `${page}`,
+                    sort_by: 'popularity.desc'
+                },
+                headers: {
+                    accept: 'application/json',
+                    Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI0NTVjYTdhNTM4MjA0NTBmMjM5Y2E1YmYxMDQ1ODJjNCIsIm5iZiI6MTc1MjY4Njg3NS41OTcsInN1YiI6IjY4NzdlMTFiYzZlZjc3ZGJkMTQzZDNjOCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.H7orvOjrk5A9XbrMrRc_mmwZ0ylPReyGoQPQCDdH4pE'
+                }
+            };
 
-        return res.status(400).json({ error: `Unsupported provider: ${provider}` });
+            axios
+                .request(options)
+                .then(resp => res.json({ seriesResults: resp.data }))
+                .catch(err => {
+                    console.error('Error fetching Pomfy data:', err);
+                    res.status(500).json({ error: 'Failed to fetch data from Pomfy' });
+                });
+        }
     } catch (error) {
         console.error('Error in /api/series:', error?.message || error);
         res.status(500).json({ error: 'An error occurred' });
