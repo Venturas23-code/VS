@@ -4,7 +4,11 @@ const { FuseV1Options, FuseVersion } = require('@electron/fuses');
 module.exports = {
   packagerConfig: {
     asar: {
-      unpack: '**/node_modules/@ghostery/**/*'
+      unpack: '**/node_modules/@ghostery/**/*',
+      executableName: 'vs',
+      extraResources: [
+        'node_modules/@ghostery'
+      ]
     },
     executableName: 'vs'
   },
