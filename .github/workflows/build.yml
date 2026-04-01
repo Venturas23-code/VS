@@ -62,11 +62,26 @@ jobs:
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-          files: |
-            release-files/**/*.exe
-            release-files/**/*.deb
-            release-files/**/*.rpm
-            release-files/**/*.zip
-            release-files/**/*.AppImage
+            body: |
+                ## Downloads
+
+                ### Windows
+                - Installer: `VS Setup.exe`
+                - Portable: `.zip`
+
+                ### Linux
+                - Portable: `.zip`
+                - Debian: `.deb`
+                - RPM: `.rpm`
+
+                ### macOS
+                - Portable: `.zip`
+                files: |
+                release-files/**/*Setup.exe
+                release-files/**/*.zip
+                release-files/**/*.deb
+                release-files/**/*.rpm
+                release-files/**/*.AppImage
+                release-files/**/*.nupkg
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
