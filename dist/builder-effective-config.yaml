@@ -1,0 +1,17 @@
+directories:
+  output: dist
+  buildResources: build
+appId: com.vstudio.vs
+productName: VS
+mac:
+  target:
+    - zip
+win:
+  target: nsis
+linux:
+  target:
+    - AppImage
+    - deb
+publish: github
+files: []
+electronVersion: 41.0.3
