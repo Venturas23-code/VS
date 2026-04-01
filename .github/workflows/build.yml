@@ -33,7 +33,7 @@ jobs:
         run: npm install
 
       - name: Build Vite
-        run: npm run build
+        run: npm start
 
       - name: Build Electron
         run: npm run make
