@@ -57,6 +57,11 @@ jobs:
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-          files: release-files/**/*
+          files: |
+            release-files/**/*.exe
+            release-files/**/*.deb
+            release-files/**/*.rpm
+            release-files/**/*.zip
+            release-files/**/*.AppImage
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
