@@ -9,7 +9,7 @@ const iconIcoPath_linux = `${iconBasePath}.png`;
 module.exports = {
   packagerConfig: {
     asar: true,
-    executableName: 'VS',
+    executableName: 'vs',
     icon: iconBasePath,
   },
   rebuildConfig: {},
