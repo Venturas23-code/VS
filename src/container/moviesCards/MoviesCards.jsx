@@ -1,8 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
+import { animate, stagger } from 'animejs';
 
 const ITEMS_PER_PAGE = 29; // ajuste conforme a API
 
-export default function moviesCards({ exportmovies , provedor, searchTerm }) {
+export default function moviesCards({ exportmovies , provedor, searchTerm, onLoadingChange }) {
     const [movies, setMovies] = useState([]);
     const [startPage, setStartPage] = useState(1);
     const [endPage, setEndPage] = useState(1);
@@ -10,6 +11,15 @@ export default function moviesCards({ exportmovies , provedor, searchTerm }) {
     const [activeAbsoluteIndex, setActiveAbsoluteIndex] = useState(0);
     const [providerContent, setProviderContent] = useState([]);
     const [activeSection, setActiveSection] = useState('Filmes');
+    const providerRef = useRef(null);
+    const sectionRef = useRef(null);
+    const movieLoadKeyRef = useRef(null);
+
+    useEffect(() => {
+        if (typeof onLoadingChange === 'function') {
+            onLoadingChange(isLoading);
+        }
+    }, [isLoading, onLoadingChange]);
 
     const normalizeSection = (section) => {
         if (!section || typeof section !== 'string') return 'filmes';
@@ -128,71 +138,102 @@ export default function moviesCards({ exportmovies , provedor, searchTerm }) {
     }
 
     useEffect(() => {
-        const loadInitial = async () => {
-            if (!provedor) {
-                setMovies([]);
-                return;
-            }
+        if (!provedor) {
+            setProviderContent([]);
+            providerRef.current = null;
+            return;
+        }
 
-            setIsLoading(true);
+        // Skip if already loaded this provider
+        if (providerRef.current === provedor) {
+            return;
+        }
+
+        // Load provider content only (don't set activeSection here)
+        (async () => {
             try {
-                const firstPage = await fetchPage(1);
-                setMovies(firstPage);
-                setStartPage(1);
-                setEndPage(1);
+                const response = await fetch('http://localhost:3000/api/provedores');
+                const data = await response.json();
+                const selectedProvider = data.find((item) => item.comando === provedor);
+                const contentItems = Array.isArray(selectedProvider?.content) ? selectedProvider.content : [];
+                setProviderContent(contentItems);
+                providerRef.current = provedor;
             } catch (error) {
-                console.error(error);
-                setMovies([]);
-            } finally {
-                setIsLoading(false);
+                console.error('Erro ao buscar conteudo do provedor:', error);
+                setProviderContent([]);
+                providerRef.current = provedor;
             }
-        };
-        loadInitial();
-    }, [provedor, activeSection]);
-
-    useEffect(() => {
-        loadProviderContent();
+        })();
     }, [provedor]);
 
     useEffect(() => {
-        const loadSearch = async () => {
+        const controller = new AbortController();
+
+        const loadContent = async () => {
             if (!provedor) {
                 setMovies([]);
+                setIsLoading(false);
                 return;
             }
 
             const query = (searchTerm || '').trim();
+            // Cria uma chave única que depende de todos os fatores de busca
+            const loadKey = `${provedor}::${query}::${activeSection}`;
+            
+            // Impede requisições duplicadas se a chave de carregamento for a mesma
+            if (movieLoadKeyRef.current === loadKey) {
+                return;
+            }
+
+            movieLoadKeyRef.current = loadKey;
             setIsLoading(true);
 
             try {
-                if (!query) {
+                if (query) {
+                    const results = await searchFilms(query);
+                    setMovies(results);
+                } else {
                     const firstPage = await fetchPage(1);
                     setMovies(firstPage);
-                    setStartPage(1);
-                    setEndPage(1);
-                    setActiveAbsoluteIndex(0);
-                    return;
                 }
-
-                const results = await searchFilms(query);
-                setMovies(results);
                 setStartPage(1);
                 setEndPage(1);
                 setActiveAbsoluteIndex(0);
             } catch (error) {
-                console.error(error);
-                setMovies([]);
+                if (error.name !== 'AbortError') {
+                    console.error('Erro ao carregar filmes:', error);
+                    setMovies([]);
+                }
             } finally {
                 setIsLoading(false);
             }
         };
 
-        loadSearch();
+        loadContent();
+
+        return () => controller.abort();
     }, [searchTerm, provedor, activeSection]);
 
     useEffect(() => {
         exportmovies(movies);
     }, [movies, exportmovies]);
+
+    useEffect(() => {
+        if (!movies.length) return;
+
+        // Aguarda o DOM estar pronto
+        const timer = setTimeout(() => {
+            animate('#MoviesCards .MovieCard' ,{
+                opacity: [0, 1],
+                translateY: [20, 0],
+                duration: 600,
+                easing: 'easeOutQuad',
+                delay: stagger(80),
+            });
+        }, 50);
+
+        return () => clearTimeout(timer);
+    }, [movies]);
 
     const goToPage = async (page) => {
         if (isLoading || page < 1) return;
