@@ -1,7 +1,7 @@
 {
   "name": "vs",
   "productName": "VS",
-  "version": "1.0.0",
+  "version": "1.0.3",
   "description": "Scraper de filmes e séries",
   "main": ".vite/build/main.js",
   "icon": "./icon.ico",
