@@ -1,10 +1,9 @@
 {
   "name": "vs",
   "productName": "VS",
-  "version": "1.0.3",
-  "description": "Scraper de filmes e séries",
+  "version": "2.0.0",
+  "description": "Um Aplicativo de streaming de filmes e séries, com uma interface inspirada em plataformas populares, mas com um toque único e personalizado.",
   "main": ".vite/build/main.js",
-  "icon": "./icon.ico",
   "private": true,
   "scripts": {
     "start": "electron-forge start",
@@ -12,29 +11,9 @@
     "make": "electron-forge make",
     "publish": "electron-forge publish",
     "lint": "echo \"No linting configured\"",
-    "build": "vite build"
-  },
-  "build": {
-    "appId": "com.vstudio.vs",
-    "productName": "VS",
-    "directories": {
-      "output": "dist"
-    },
-    "mac": {
-      "target": [
-        "zip"
-      ]
-    },
-    "win": {
-      "target": "nsis"
-    },
-    "linux": {
-      "target": [
-        "AppImage",
-        "deb"
-      ]
-    },
-    "publish": "github"
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run",
+    "test": "cypress run"
   },
   "keywords": [],
   "author": {
@@ -52,21 +31,15 @@
     "@electron-forge/plugin-fuses": "^7.11.1",
     "@electron-forge/plugin-vite": "^7.11.1",
     "@electron/fuses": "^1.8.0",
-    "@vitejs/plugin-react": "^6.0.1",
-    "electron": "41.0.3",
-    "electron-builder": "^24.13.3",
-    "vite": "^8.0.2"
+    "@vitejs/plugin-react": "^4.3.4",
+    "electron": "41.2.1",
+    "vite": "^5.4.21"
   },
   "dependencies": {
     "@ghostery/adblocker-electron": "^2.14.1",
-    "animejs": "^4.3.6",
-    "axios": "^1.13.6",
-    "cheerio": "^1.2.0",
-    "cors": "^2.8.6",
-    "cross-fetch": "^4.1.0",
     "electron-squirrel-startup": "^1.0.1",
-    "express": "^5.2.1",
-    "react": "^19.2.4",
-    "react-dom": "^19.2.4"
+    "react": "^19.2.5",
+    "react-dom": "^19.2.5",
+    "react-router-dom": "^7.14.1"
   }
 }

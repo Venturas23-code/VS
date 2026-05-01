@@ -1,8 +1,9 @@
-const path = require('node:path');
+const path = require('path');
 const { FusesPlugin } = require('@electron-forge/plugin-fuses');
 const { FuseV1Options, FuseVersion } = require('@electron/fuses');
 
-const iconBasePath = path.resolve(__dirname, 'src', 'images', 'Icon');
+
+const iconBasePath = path.resolve(__dirname, 'src', 'assets', 'Icons', 'App', 'Icon');
 const iconIcoPath_win = `${iconBasePath}.ico`;
 const iconIcoPath_linux = `${iconBasePath}.png`;
 
@@ -22,7 +23,7 @@ module.exports = {
     },
     {
       name: '@electron-forge/maker-zip',
-      platforms: ['darwin', 'win32', 'linux'],
+      platforms: ['darwin'],
     },
     {
       name: '@electron-forge/maker-deb',
@@ -74,6 +75,6 @@ module.exports = {
       [FuseV1Options.EnableNodeCliInspectArguments]: false,
       [FuseV1Options.EnableEmbeddedAsarIntegrityValidation]: true,
       [FuseV1Options.OnlyLoadAppFromAsar]: true,
-    })
+    }),
   ],
 };

@@ -1,1 +1,0 @@
-import { animate } from "animejs";

@@ -1,0 +1,73 @@
+.Painel_lateral {
+    top: 33%;
+    left: 0;
+    margin: 10px;
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    height: 30%;
+    align-items: center;
+    z-index: 1;
+    flex-wrap: nowrap;
+    justify-content: space-evenly;
+    padding: 14px;
+    --accent-soft: rgba(255, 154, 26, 0.35);
+}
+/* Botões do painel */
+.panel-btn {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    width: 80px;
+    height: 80px;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease-out;
+    color: #fff2dc;
+    right: 20px;
+}
+.panel-btn svg {
+    width: 32px;
+    height: 32px;
+    transition: all 0.3s ease-out;
+}
+.Text-button {
+    position: relative;
+    top: -20px;
+    color: #fff2dc;
+    font-size: 0.9rem;
+    font-weight: 700;
+    line-height: 1;
+    margin-top: 4px;
+    z-index: -1;
+}
+.panel-btn .Text-button {
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    transition: all 0.3s ease-out;
+    background-color: rgba(80, 47, 5, 0.35);
+    padding: 10px;
+    border: 1px solid rgba(255, 154, 26, 0.35);
+    border-radius: 10px;
+    opacity: 0;
+    white-space: nowrap;
+}
+.panel-btn:hover .Text-button {
+    left: 95px;
+    opacity: 1;
+}
+
+/* Responsividade */
+@media (max-width: 480px) {
+    .Painel_lateral { top: 28%; }
+    .panel-btn { width: 72px; padding: 8px 10px; }
+    .panel-btn svg { width: 28px; height: 28px; }
+    .panel-btn h4 { font-size: 0.75rem; }
+}

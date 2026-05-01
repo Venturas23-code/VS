@@ -1,0 +1,602 @@
+.TVPage {
+	--surface: rgba(24, 8, 4, 0.66);
+	--surface-strong: rgba(33, 10, 4, 0.88);
+	--title: #fff2dc;
+	--subtitle: #ffc48d;
+	--accent: #ff9a1a;
+	--accent-soft: rgba(255, 154, 26, 0.35);
+	--stroke: rgba(255, 140, 61, 0.25);
+	--shadow: 0 24px 54px rgba(0, 0, 0, 0.62);
+	padding: clamp(18px, 3vw, 32px) 0 36px;
+	max-width: 1320px;
+	margin: 0 auto;
+	animation: fade-up 0.55s ease;
+}
+
+.TVHeader {
+	position: relative;
+	overflow: hidden;
+	margin-bottom: 28px;
+	padding: 20px;
+	border: 1px solid var(--stroke);
+	border-radius: 20px;
+	background: linear-gradient(130deg, rgba(45, 13, 4, 0.78), rgba(19, 6, 3, 0.58));
+	box-shadow: var(--shadow);
+	backdrop-filter: blur(8px);
+	-webkit-backdrop-filter: blur(8px);
+}
+
+.TVHeader::after {
+	content: '';
+	position: absolute;
+	inset: -140% 35% auto -25%;
+	height: 220%;
+	transform: rotate(15deg);
+	background: linear-gradient(90deg, transparent, rgba(255, 197, 124, 0.08), transparent);
+	pointer-events: none;
+}
+
+.TVHeader h1 {
+	margin: 0;
+	font-family: 'Space Grotesk', 'Segoe UI', sans-serif;
+	letter-spacing: 0.015em;
+	font-size: clamp(2rem, 4.4vw, 3.3rem);
+	line-height: 1;
+	color: var(--title);
+	text-shadow: 0 8px 32px rgba(255, 130, 30, 0.3);
+}
+
+.TVHeader p {
+	margin: 12px 0 0;
+	color: var(--subtitle);
+	font-size: clamp(0.95rem, 1.6vw, 1.05rem);
+	max-width: 74ch;
+}
+
+.CarrosselLista {
+	display: grid;
+	gap: 34px;
+	width: 100%;
+}
+
+.CarrosselSecao {
+	position: relative;
+	overflow: hidden;
+	min-width: 0;
+	padding: 16px;
+	border: 1px solid var(--stroke);
+	border-radius: 20px;
+	background: linear-gradient(180deg, rgba(39, 12, 5, 0.64), rgba(15, 4, 2, 0.52));
+	box-shadow: var(--shadow);
+	animation: fade-up 0.42s ease;
+}
+
+.CarrosselDestaque {
+	border-color: rgba(255, 203, 132, 0.42);
+	background: linear-gradient(180deg, rgba(49, 16, 8, 0.78), rgba(18, 5, 3, 0.62));
+}
+
+.CarrosselDestaque .CarrosselTopo {
+	align-items: center;
+}
+
+.SportCounter {
+	padding: 6px 10px;
+	border-radius: 999px;
+	border: 1px solid rgba(255, 208, 150, 0.28);
+	background: rgba(10, 4, 2, 0.38);
+	color: #ffe7c7;
+	font-size: 0.78rem;
+	font-weight: 700;
+	letter-spacing: 0.08em;
+	backdrop-filter: blur(8px);
+	-webkit-backdrop-filter: blur(8px);
+}
+
+.CarrosselSecao::before {
+	content: '';
+	position: absolute;
+	inset: 0;
+	pointer-events: none;
+	background: linear-gradient(180deg, rgba(255, 190, 110, 0.08), transparent 22%);
+}
+
+.CarrosselTopo {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 12px;
+	margin-bottom: 14px;
+}
+
+.CarrosselSecao h2 {
+	margin: 0;
+	font-family: 'Space Grotesk', 'Segoe UI', sans-serif;
+	letter-spacing: 0.012em;
+	font-size: clamp(1.2rem, 2.3vw, 1.58rem);
+	color: var(--title);
+}
+
+.CarrosselControles {
+	display: flex;
+	gap: 8px;
+}
+
+.CarrosselTrilho {
+	position: relative;
+	overflow: hidden;
+	border-radius: 14px;
+}
+
+.CarrosselTrilho::before,
+.CarrosselTrilho::after {
+	content: '';
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	width: 62px;
+	z-index: 2;
+	pointer-events: none;
+	backdrop-filter: blur(6px);
+	-webkit-backdrop-filter: blur(6px);
+	background: linear-gradient(90deg, rgba(20, 6, 3, 0.88), transparent 85%);
+	opacity: 1;
+	transition: opacity 0.2s ease;
+}
+
+.CarrosselTrilho::before {
+	left: 0;
+	opacity: 0;
+}
+
+.CarrosselTrilho::after {
+	right: 0;
+	opacity: 0;
+}
+
+.CarrosselTrilho.sem-esquerda::before {
+	opacity: 0;
+}
+
+.CarrosselTrilho.sem-direita::after {
+	opacity: 0;
+}
+
+.CarrosselBotao {
+	width: 38px;
+	height: 38px;
+	border: 1px solid rgba(255, 172, 92, 0.5);
+	border-radius: 999px;
+	background: linear-gradient(155deg, rgba(67, 20, 7, 0.95), rgba(42, 11, 5, 0.95));
+	color: #ffe8cd;
+	cursor: pointer;
+	font-size: 1.3rem;
+	line-height: 1;
+	box-shadow: 0 8px 20px rgba(3, 10, 17, 0.35);
+	transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+}
+
+.CarrosselBotao:hover {
+	transform: translateY(-2px);
+	border-color: #ffc483;
+	box-shadow: 0 12px 24px rgba(1, 8, 14, 0.5);
+	background: linear-gradient(155deg, rgba(98, 28, 8, 0.98), rgba(56, 15, 6, 0.98));
+}
+
+.CarrosselBotao:active {
+	transform: translateY(0);
+}
+
+.CarrosselBotao:focus-visible {
+	outline: 3px solid var(--accent-soft);
+	outline-offset: 2px;
+}
+
+.TVTrilho {
+	display: grid;
+	grid-auto-flow: column;
+	grid-auto-columns: minmax(176px, 220px);
+	gap: 16px;
+	overflow-x: auto;
+	overflow-y: hidden;
+	padding: 2px 4px 10px;
+	scroll-snap-type: x mandatory;
+	scrollbar-width: none;
+	width: 100%;
+}
+
+.TVTrilho--Eventos {
+	grid-auto-columns: minmax(240px, 300px);
+}
+
+.TVTrilho::-webkit-scrollbar {
+	display: none;
+}
+
+.ChannelCard {
+	position: relative;
+	min-height: 195px;
+	border: 1px solid rgba(255, 166, 96, 0.28);
+	border-radius: 14px;
+	background: var(--surface);
+	overflow: hidden;
+	box-shadow: 0 20px 30px rgba(0, 0, 0, 0.5);
+	transition: transform 0.24s ease, box-shadow 0.24s ease, border-color 0.24s ease;
+	scroll-snap-align: start;
+}
+
+.ChannelCard:hover {
+	transform: translateY(-6px) scale(1.012);
+	box-shadow: 0 26px 42px rgba(0, 0, 0, 0.62);
+	border-color: rgba(255, 187, 120, 0.72);
+}
+
+.ChannelFallback {
+	position: absolute;
+	inset: 0;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-between;
+	gap: 12px;
+	padding: 16px;
+	text-align: center;
+	background:
+		linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(0, 0, 0, 0.06)),
+		linear-gradient(180deg, transparent 0%, rgba(14, 4, 2, 0.72) 100%);
+}
+
+.ChannelFallback img {
+	display: block;
+	width: 88px;
+	height: 88px;
+	flex: 0 0 auto;
+	object-fit: contain;
+	padding: 10px;
+	border-radius: 18px;
+	background: rgba(255, 255, 255, 0.06);
+	box-shadow: 0 12px 24px rgba(0, 0, 0, 0.28);
+	margin-top: 4px;
+	margin-bottom: auto;
+}
+
+.ChannelInfo {
+	width: 100%;
+	margin-top: auto;
+}
+
+.ChannelInfo h3 {
+	margin: 0;
+	font-family: 'Space Grotesk', 'Segoe UI', sans-serif;
+	font-size: 1.02rem;
+	line-height: 1.2;
+	color: #fff7ea;
+}
+
+.ChannelInfo p {
+	margin: 8px 0 0;
+	color: #ffd19d;
+	font-size: 0.9rem;
+}
+
+.SportCard {
+	position: relative;
+	min-height: 320px;
+	border: 1px solid rgba(255, 166, 96, 0.26);
+	border-radius: 18px;
+	overflow: hidden;
+	background: linear-gradient(180deg, rgba(32, 10, 5, 0.92), rgba(12, 4, 2, 0.92));
+	box-shadow: 0 20px 30px rgba(0, 0, 0, 0.52);
+	cursor: pointer;
+	transition: transform 0.24s ease, box-shadow 0.24s ease, border-color 0.24s ease;
+	scroll-snap-align: start;
+	text-align: left;
+}
+
+.SportHero {
+	position: relative;
+	min-height: 460px;
+	border: 1px solid rgba(255, 166, 96, 0.20);
+	border-radius: 22px;
+	overflow: hidden;
+	background: linear-gradient(180deg, rgba(32, 10, 5, 0.96), rgba(12, 4, 2, 0.96));
+	box-shadow: 0 16px 28px rgba(0, 0, 0, 0.48);
+	cursor: pointer;
+	transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+	animation: sport-entrance 0.7s ease, sport-float 9s ease-in-out infinite;
+}
+
+.SportHero::before {
+	content: '';
+	position: absolute;
+	/* expand and shift the gradient origin left so it isn't clipped at the edge */
+	inset: -30% -5% auto -30%;
+	width: 120%;
+	height: 120%;
+	background: radial-gradient(circle at 8% 30%, rgba(255,173,76,0.00) 0%, rgba(255,173,76,0.03) 30%, rgba(255,173,76,0.05) 50%, transparent 75%);
+	filter: blur(6px);
+	pointer-events: none;
+	animation: sport-glow 8s ease-in-out infinite;
+}
+
+.SportHero::after {
+	content: '';
+	position: absolute;
+	inset: 0;
+	background: linear-gradient(115deg, transparent 0%, rgba(255, 214, 160, 0.1) 45%, transparent 58%);
+	transform: translateX(-35%);
+	pointer-events: none;
+	animation: sport-sheen 8s linear infinite;
+}
+
+.SportHero:hover {
+	transform: translateY(-4px);
+	box-shadow: 0 32px 52px rgba(0, 0, 0, 0.68);
+	border-color: rgba(255, 188, 122, 0.78);
+}
+
+.SportHeroMedia {
+	position: absolute;
+	inset: 0;
+	background: #120604;
+}
+
+.SportHeroMedia img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	display: block;
+	transform: scale(1.00);
+	transition: transform 0.45s ease;
+}
+
+.SportHero:hover .SportHeroMedia img {
+	transform: scale(1.03);
+}
+
+.SportHeroOverlay {
+	position: absolute;
+	inset: 0;
+	display: flex;
+	align-items: flex-end;
+	justify-content: flex-start;
+	padding: clamp(18px, 3vw, 28px);
+	background: linear-gradient(180deg, rgba(10, 4, 2, 0.06) 0%, rgba(10, 4, 2, 0.08) 36%, rgba(10, 4, 2, 0.88) 100%);
+}
+
+.SportHeroText {
+	max-width: min(620px, 100%);
+	color: #fff7ea;
+}
+
+.SportHeroKicker {
+	margin: 0 0 10px;
+	font-size: 0.78rem;
+	font-weight: 700;
+	letter-spacing: 0.18em;
+	text-transform: uppercase;
+	color: #ffcf9d;
+}
+
+.SportHeroText h3 {
+	margin: 0;
+	font-family: 'Space Grotesk', 'Segoe UI', sans-serif;
+	font-size: clamp(1.5rem, 3.4vw, 2.4rem);
+	line-height: 1.04;
+	text-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+}
+
+.SportHeroText p {
+	margin: 12px 0 0;
+	max-width: 58ch;
+	font-size: clamp(0.98rem, 1.6vw, 1.08rem);
+	line-height: 1.5;
+	color: #ffe2c3;
+}
+
+.SportHeroTime {
+	display: inline-block;
+	margin-top: 12px !important;
+	padding: 7px 10px;
+	border-radius: 999px;
+	background: rgba(10, 4, 2, 0.34);
+	border: 1px solid rgba(255, 208, 150, 0.18);
+	color: #fff0dc !important;
+	font-size: 0.86rem !important;
+	font-weight: 700;
+	letter-spacing: 0.03em;
+	backdrop-filter: blur(6px);
+	-webkit-backdrop-filter: blur(6px);
+}
+
+.SportHeroBadge {
+	left: auto;
+	right: 18px;
+	top: 18px;
+}
+
+.SportHeroPlaceholder {
+	font-size: 1.05rem;
+}
+
+@keyframes sport-entrance {
+	from {
+		opacity: 0;
+		transform: translateY(10px) scale(0.985);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0) scale(1);
+	}
+}
+
+@keyframes sport-float {
+	0%,
+	100% {
+		transform: translateY(0);
+	}
+	50% {
+		transform: translateY(-2px);
+	}
+}
+
+@keyframes sport-glow {
+	0%,
+	100% {
+		transform: scale(1);
+		opacity: 0.5;
+	}
+	50% {
+		transform: scale(1.04);
+		opacity: 0.85;
+	}
+}
+
+@keyframes sport-sheen {
+	0% {
+		transform: translateX(-40%);
+	}
+	100% {
+		transform: translateX(140%);
+	}
+}
+
+.SportCard:hover {
+	transform: translateY(-6px) scale(1.01);
+	box-shadow: 0 28px 44px rgba(0, 0, 0, 0.64);
+	border-color: rgba(255, 188, 122, 0.78);
+}
+
+.SportMedia {
+	position: relative;
+	height: 220px;
+	overflow: hidden;
+	background: #120604;
+}
+
+.SportMedia img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	display: block;
+	transform: scale(1.01);
+	transition: transform 0.3s ease;
+}
+
+.SportCard:hover .SportMedia img {
+	transform: scale(1.05);
+}
+
+.SportMedia::after {
+	content: '';
+	position: absolute;
+	inset: 0;
+	background: linear-gradient(180deg, rgba(7, 3, 2, 0.04) 0%, rgba(7, 3, 2, 0.12) 44%, rgba(7, 3, 2, 0.8) 100%);
+	pointer-events: none;
+}
+
+.SportPlaceholder {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 100%;
+	color: #ffe7c7;
+	font-size: 0.98rem;
+	letter-spacing: 0.02em;
+	background: linear-gradient(135deg, rgba(255, 177, 98, 0.22), rgba(54, 16, 6, 0.95));
+}
+
+.SportBadge {
+	position: absolute;
+	left: 14px;
+	top: 14px;
+	z-index: 1;
+	padding: 6px 10px;
+	border-radius: 999px;
+	background: rgba(10, 4, 2, 0.7);
+	border: 1px solid rgba(255, 208, 150, 0.28);
+	color: #ffe6c8;
+	font-size: 0.74rem;
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: 0.08em;
+	backdrop-filter: blur(8px);
+	-webkit-backdrop-filter: blur(8px);
+}
+
+.SportInfo {
+	padding: 14px 14px 16px;
+	background: linear-gradient(180deg, rgba(12, 4, 2, 0.02), rgba(12, 4, 2, 0.16));
+}
+
+.SportInfo h3 {
+	margin: 0;
+	font-family: 'Space Grotesk', 'Segoe UI', sans-serif;
+	font-size: 1.06rem;
+	line-height: 1.25;
+	color: #fff7ea;
+}
+
+.SportInfo p {
+	margin: 8px 0 0;
+	color: #ffcfa3;
+	font-size: 0.92rem;
+	line-height: 1.4;
+}
+
+.TVStatus {
+	margin: 0;
+	color: #ffe7c7;
+	font-size: 0.98rem;
+	padding: 8px 4px;
+}
+
+@media (max-width: 768px) {
+	.TVPage {
+		padding: 16px 0 28px;
+	}
+
+	.TVHeader {
+		padding: 16px;
+		margin-bottom: 20px;
+	}
+
+	.CarrosselSecao {
+		padding: 12px;
+		border-radius: 16px;
+	}
+
+	.CarrosselTrilho::before,
+	.CarrosselTrilho::after {
+		width: 36px;
+	}
+
+	.CarrosselBotao {
+		width: 34px;
+		height: 34px;
+		font-size: 1.1rem;
+	}
+
+	.TVTrilho {
+		grid-auto-columns: minmax(146px, 176px);
+		gap: 12px;
+	}
+
+	.TVTrilho--Eventos {
+		grid-auto-columns: minmax(210px, 260px);
+	}
+
+	.ChannelCard {
+		min-height: 175px;
+	}
+
+	.SportHero {
+		min-height: 380px;
+		border-radius: 18px;
+		animation-duration: 0.7s, 7s;
+	}
+
+	.SportHeroOverlay {
+		padding: 16px;
+	}
+}

@@ -3,8 +3,6 @@ import path from 'node:path';
 import started from 'electron-squirrel-startup';
 const fs = require('fs');
 
-import './server'
-
 let mainWindowId = null;
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
@@ -90,13 +88,14 @@ app.on('web-contents-created', (event, contents) => {
     const sourceWindow = BrowserWindow.fromWebContents(contents);
     const isMainWindow = sourceWindow?.id === mainWindowId;
     const isHttpUrl = url.startsWith('http://') || url.startsWith('https://');
+    const isBlankPopupUrl = !url || url === 'about:blank';
 
     if (!isMainWindow) {
       console.log('Pop-up bloqueado em janela secundaria:', url);
       return { action: 'deny' };
     }
 
-    if (isHttpUrl) {
+    if (isHttpUrl || isBlankPopupUrl) {
       return {
         action: 'allow',
         overrideBrowserWindowOptions: {

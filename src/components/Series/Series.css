@@ -1,0 +1,460 @@
+.SeriesPage {
+    --surface: rgba(24, 8, 4, 0.66);
+    --surface-strong: rgba(33, 10, 4, 0.88);
+    --title: #fff2dc;
+    --subtitle: #ffc48d;
+    --accent: #ff9a1a;
+    --accent-soft: rgba(255, 154, 26, 0.35);
+    --stroke: rgba(255, 140, 61, 0.25);
+    --shadow: 0 24px 54px rgba(0, 0, 0, 0.62);
+    padding: clamp(18px, 3vw, 32px) 0 36px;
+    max-width: 1320px;
+    margin: 0 auto;
+    animation: fade-up 0.55s ease;
+}
+
+.SeriesHeader {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 28px;
+    padding: 20px;
+    border: 1px solid var(--stroke);
+    border-radius: 20px;
+    background: linear-gradient(130deg, rgba(45, 13, 4, 0.78), rgba(19, 6, 3, 0.58));
+    box-shadow: var(--shadow);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+.SeriesHeader::after {
+    content: '';
+    position: absolute;
+    inset: -140% 35% auto -25%;
+    height: 220%;
+    transform: rotate(15deg);
+    background: linear-gradient(90deg, transparent, rgba(255, 197, 124, 0.08), transparent);
+    pointer-events: none;
+}
+
+.SeriesHeader h1 {
+    margin: 0;
+    font-family: 'Space Grotesk', 'Segoe UI', sans-serif;
+    letter-spacing: 0.015em;
+    font-size: clamp(2rem, 4.4vw, 3.3rem);
+    line-height: 1;
+    color: var(--title);
+    text-shadow: 0 8px 32px rgba(255, 130, 30, 0.3);
+}
+
+.SeriesHeader p {
+    margin: 12px 0 0;
+    color: var(--subtitle);
+    font-size: clamp(0.95rem, 1.6vw, 1.05rem);
+    max-width: 74ch;
+}
+
+.CarrosselLista {
+    display: grid;
+    gap: 34px;
+    width: 100%;
+}
+
+.CarrosselSecao {
+    position: relative;
+    overflow: hidden;
+    min-width: 0;
+    padding: 16px;
+    border: 1px solid var(--stroke);
+    border-radius: 20px;
+    background: linear-gradient(180deg, rgba(39, 12, 5, 0.64), rgba(15, 4, 2, 0.52));
+    box-shadow: var(--shadow);
+    animation: fade-up 0.42s ease;
+}
+
+.CarrosselSecao::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(180deg, rgba(255, 190, 110, 0.08), transparent 22%);
+}
+
+.CarrosselTopo {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 14px;
+}
+
+.CarrosselSecao h2 {
+    margin: 0;
+    font-family: 'Space Grotesk', 'Segoe UI', sans-serif;
+    letter-spacing: 0.012em;
+    font-size: clamp(1.2rem, 2.3vw, 1.58rem);
+    color: var(--title);
+}
+
+.CarrosselControles {
+    display: flex;
+    gap: 8px;
+}
+
+.CarrosselTrilho {
+    position: relative;
+    overflow: hidden;
+    border-radius: 14px;
+}
+
+.CarrosselTrilho::before,
+.CarrosselTrilho::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 62px;
+    z-index: 2;
+    pointer-events: none;
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    background: linear-gradient(90deg, rgba(20, 6, 3, 0.88), transparent 85%);
+    opacity: 1;
+    transition: opacity 0.2s ease;
+}
+
+.CarrosselTrilho::before {
+    left: 0;
+    opacity: 0;
+}
+
+.CarrosselTrilho::after {
+    right: 0;
+    opacity: 0;
+}
+
+.CarrosselTrilho.sem-esquerda::before {
+    opacity: 0;
+}
+
+.CarrosselTrilho.sem-direita::after {
+    opacity: 0;
+}
+
+.CarrosselBotao {
+    width: 38px;
+    height: 38px;
+    border: 1px solid rgba(255, 172, 92, 0.5);
+    border-radius: 999px;
+    background: linear-gradient(155deg, rgba(67, 20, 7, 0.95), rgba(42, 11, 5, 0.95));
+    color: #ffe8cd;
+    cursor: pointer;
+    font-size: 1.3rem;
+    line-height: 1;
+    box-shadow: 0 8px 20px rgba(3, 10, 17, 0.35);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+}
+
+.CarrosselBotao:hover {
+    transform: translateY(-2px);
+    border-color: #ffc483;
+    box-shadow: 0 12px 24px rgba(1, 8, 14, 0.5);
+    background: linear-gradient(155deg, rgba(98, 28, 8, 0.98), rgba(56, 15, 6, 0.98));
+}
+
+.CarrosselBotao:active {
+    transform: translateY(0);
+}
+
+.CarrosselBotao:focus-visible {
+    outline: 3px solid var(--accent-soft);
+    outline-offset: 2px;
+}
+
+.Series {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(176px, 220px);
+    gap: 16px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 2px 4px 10px;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    width: 100%;
+}
+.Series.Pesquisa{
+    grid-auto-flow: row;
+    grid-auto-columns: unset;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 14px;
+    overflow: visible;
+    overflow-x: visible;
+    overflow-y: visible;
+    scroll-snap-type: none;
+    padding: 6px 2px 2px;
+}
+
+.Series.Pesquisa .Card {
+    width: 100%;
+    max-width: none;
+}
+
+.Series::-webkit-scrollbar {
+    display: none;
+}
+
+.Card {
+    position: relative;
+    border: 1px solid rgba(255, 166, 96, 0.28);
+    border-radius: 14px;
+    background: var(--surface);
+    padding: 0;
+    overflow: hidden;
+    cursor: pointer;
+    text-align: left;
+    box-shadow: 0 20px 30px rgba(0, 0, 0, 0.5);
+    transition: transform 0.24s ease, box-shadow 0.24s ease, border-color 0.24s ease;
+    scroll-snap-align: start;
+}
+
+.Card::after {
+    content: '';
+    position: absolute;
+    inset: auto 0 0 0;
+    height: 42%;
+    background: linear-gradient(180deg, transparent 0%, rgba(14, 4, 2, 0.72) 100%);
+    opacity: 0;
+    transition: opacity 0.24s ease;
+}
+
+.Card:hover {
+    transform: translateY(-6px) scale(1.012);
+    box-shadow: 0 26px 42px rgba(0, 0, 0, 0.62);
+    border-color: rgba(255, 187, 120, 0.72);
+}
+
+.Card:hover::after {
+    opacity: 1;
+}
+
+.Card:focus-visible {
+    outline: 3px solid var(--accent-soft);
+    outline-offset: 2px;
+}
+
+.Card img {
+    width: 100%;
+    aspect-ratio: 2 / 3;
+    object-fit: cover;
+    display: block;
+    filter: saturate(0.88) contrast(1.05) brightness(0.9);
+    transition: filter 0.24s ease;
+}
+
+.Card:hover img {
+    filter: saturate(1.06) contrast(1.14) brightness(0.98);
+}
+
+.CardCarregando {
+    display: grid;
+    place-items: center;
+    min-height: 220px;
+    border-style: dashed;
+    border-color: rgba(255, 170, 104, 0.42);
+    background: var(--surface-strong);
+}
+
+.CardCarregando p {
+    margin: 0;
+    color: var(--subtitle);
+    font-size: 0.88rem;
+    font-weight: 700;
+}
+
+.LoadingText {
+    color: var(--subtitle);
+    font-size: 1rem;
+    margin: 6px 2px;
+}
+
+.SearchDiv {
+    margin-left: auto;
+    margin-top: 12px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 0;
+}
+
+.SearchToggle {
+    width: 46px;
+    height: 46px;
+    flex: 0 0 auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(255, 182, 120, 0.58);
+    border-radius: 999px;
+    background: linear-gradient(145deg, rgba(88, 27, 11, 0.92), rgba(48, 14, 6, 0.94));
+    color: var(--subtitle);
+    box-shadow: 0 10px 24px rgba(8, 4, 3, 0.45);
+    cursor: pointer;
+    transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, color 0.2s ease;
+}
+
+.SearchToggle:hover {
+    transform: translateY(-1px);
+    border-color: rgba(255, 202, 156, 0.82);
+    color: #ffe7c9;
+    box-shadow: 0 14px 30px rgba(8, 4, 3, 0.56);
+}
+
+.SearchToggle:active {
+    transform: translateY(0);
+}
+
+.SearchToggle:focus-visible {
+    outline: 3px solid var(--accent-soft);
+    outline-offset: 2px;
+}
+
+.SearchIcon {
+    width: 22px;
+    height: 22px;
+}
+
+.SearchBar {
+    width: 0;
+    opacity: 0;
+    transform: translateX(8px);
+    pointer-events: none;
+    overflow: hidden;
+    visibility: hidden;
+    transition: width 0.28s ease, opacity 0.2s ease, transform 0.28s ease;
+}
+
+.SearchBar.SearchBarOpen {
+    width: min(360px, 45vw);
+    opacity: 1;
+    transform: translateX(0);
+    pointer-events: auto;
+    visibility: visible;
+}
+
+.Input_Search {
+    width: 100%;
+    height: 44px;
+    padding: 8px 14px;
+    border: 1px solid rgba(255, 182, 124, 0.62);
+    border-radius: 999px;
+    background: linear-gradient(155deg, rgba(78, 24, 9, 0.96), rgba(45, 13, 6, 0.96));
+    color: #ffe8cd;
+    font-size: 0.94rem;
+    line-height: 1;
+    box-shadow: inset 0 0 0 1px rgba(255, 215, 178, 0.08), 0 10px 22px rgba(7, 3, 2, 0.4);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.Input_Search::placeholder {
+    color: rgba(255, 204, 153, 0.72);
+}
+
+.Input_Search:focus {
+    outline: none;
+    border-color: rgba(255, 212, 166, 0.95);
+    
+    box-shadow: 0 0 0 3px rgba(255, 154, 26, 0.24), 0 10px 22px rgba(7, 3, 2, 0.45);
+}
+
+.SearchStatus {
+    margin: 12px 4px;
+    color: var(--subtitle);
+    font-size: 0.96rem;
+}
+
+.SearchMaisBtn {
+    margin-top: 14px;
+    width: 100%;
+    max-width: 320px;
+    height: 42px;
+    border: 1px solid rgba(255, 181, 116, 0.6);
+    border-radius: 999px;
+    background: linear-gradient(150deg, rgba(92, 28, 10, 0.94), rgba(48, 14, 6, 0.95));
+    color: #ffe7c9;
+    cursor: pointer;
+    font-weight: 600;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    box-shadow: 0 10px 24px rgba(6, 3, 2, 0.45);
+}
+
+.SearchMaisBtn:hover:not(:disabled) {
+    transform: translateY(-1px);
+    border-color: rgba(255, 205, 156, 0.85);
+    box-shadow: 0 14px 28px rgba(6, 3, 2, 0.55);
+}
+
+.SearchMaisBtn:disabled {
+    opacity: 0.75;
+    cursor: not-allowed;
+}
+
+.SearchMaisBtn:focus-visible {
+    outline: 3px solid var(--accent-soft);
+    outline-offset: 2px;
+}
+
+@keyframes fade-up {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 768px) {
+    .FilmesPage {
+        padding-top: 12px;
+    }
+
+    .FilmesHeader {
+        padding: 16px;
+        border-radius: 16px;
+    }
+
+    .CarrosselSecao {
+        padding: 12px;
+        border-radius: 16px;
+    }
+
+    .CarrosselTrilho::before,
+    .CarrosselTrilho::after {
+        width: 36px;
+    }
+
+    .CarrosselBotao {
+        width: 34px;
+        height: 34px;
+        font-size: 1.1rem;
+    }
+
+    .SearchDiv {
+        width: 100%;
+        margin-top: 16px;
+    }
+
+    .SearchBar.SearchBarOpen {
+        width: min(100%, 320px);
+    }
+
+    .Filmes {
+        grid-auto-columns: minmax(146px, 176px);
+        gap: 12px;
+    }
+}
